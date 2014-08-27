@@ -13,6 +13,7 @@ package
     import scenes.TextScene;
     import scenes.TextureScene;
     import scenes.TouchScene;
+	import scenes.Cocos2dScene;
     
     import starling.core.Starling;
     import starling.display.Button;
@@ -47,7 +48,8 @@ package
                 ["Blend Modes", BlendModeScene],
                 ["Render Texture", RenderTextureScene],
                 ["Benchmark", BenchmarkScene],
-                ["Clipping", MaskScene]
+                ["Clipping", MaskScene],
+				["Cocos2d", Cocos2dScene]
             ];
             
             var buttonTexture:Texture = Game.assets.getTexture("button_medium");
