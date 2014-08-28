@@ -108,6 +108,7 @@ package starling.cocosbuilder
 				this.rotation = nodeInfo.getRotation();
 				this.touchable = nodeInfo.isTouchable();
 				this.anchorPoint = nodeInfo.getAnchorPoint();
+				this.ignoreAnchorPointForPosition = nodeInfo.isIgnoreAnchorPointForPosition();
 				return true;
 			}
 			else

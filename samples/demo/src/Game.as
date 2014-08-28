@@ -6,6 +6,8 @@ package
     
     import scenes.Scene;
     
+    import starling.cocosbuilder.CCBReader;
+	import starling.cocosbuilder.CCDialogManager;
     import starling.core.Starling;
     import starling.display.Button;
     import starling.display.Image;
@@ -38,6 +40,8 @@ package
         public function start(background:Texture, assets:AssetManager):void
         {
             sAssets = assets;
+			
+			CCBReader.assets = assets;
             
             // The background is passed into this method for two reasons:
             // 
@@ -98,6 +102,7 @@ package
         private function onButtonTriggered(event:Event):void
         {
             var button:Button = event.target as Button;
+			if (button == null) return;
             
             if (button.name == "backButton")
                 closeScene();

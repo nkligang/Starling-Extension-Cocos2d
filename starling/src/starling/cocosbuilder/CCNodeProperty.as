@@ -74,10 +74,7 @@ package starling.cocosbuilder
 		public static const CCBNodePropertyIsAccelerometerEnabled:String       = "isAccelerometerEnabled";
 		public static const CCBNodePropertyIsKeyboardEnabled:String            = "isKeyboardEnabled";
 		public static const CCBNodePropertyMouseEnabled:String                 = "mouseEnabled";
-		
-		public static var sResolutionScale:Point = new Point(1, 1);
-		public static var sResolutionSize:Point = new Point(1280, 800);
-		
+				
 		public function CCNodeProperty(className:String, parent:CCNodeProperty)
 		{
 			mClassName = className;
@@ -151,8 +148,8 @@ package starling.cocosbuilder
 					}
 					else
 					{
-						result.x = sResolutionSize.x * position.x / 100;
-						result.y = sResolutionSize.y * position.y / 100;
+						result.x = CCDialogManager.ResourceWidth  * position.x / 100;
+						result.y = CCDialogManager.ResourceHeight * position.y / 100;
 						return result;
 					}
 				}
@@ -187,9 +184,9 @@ package starling.cocosbuilder
 					}
 					else
 					{
-						if (result == null) return new Point(sResolutionSize.x * contentSize.x / 100, sResolutionSize.y * contentSize.y / 100);
-						result.x = sResolutionSize.x * contentSize.x / 100;
-						result.y = sResolutionSize.y * contentSize.y / 100;
+						if (result == null) return new Point(CCDialogManager.ResourceWidth * contentSize.x / 100, CCDialogManager.ResourceHeight * contentSize.y / 100);
+						result.x = CCDialogManager.ResourceWidth  * contentSize.x / 100;
+						result.y = CCDialogManager.ResourceHeight * contentSize.y / 100;
 						return result;
 					}
 				}
@@ -216,8 +213,8 @@ package starling.cocosbuilder
 				case CCTypeSize.CCTypeScaleTypeMultiplyByResolutionScale:
 				{
 					if (result == null) return new Point(scale.x, scale.y);
-					result.x = scale.x * sResolutionScale.x;
-					result.y = scale.y * sResolutionScale.y;
+					result.x = scale.x * CCDialogManager.GlobalScale;
+					result.y = scale.y * CCDialogManager.GlobalScale;
 					return result;
 				}
 				default:

@@ -49,7 +49,7 @@ package starling.cocosbuilder
 		
 		public override function init():Boolean
 		{
-			return initWithSize(CCNodeProperty.sResolutionSize.x, CCNodeProperty.sResolutionSize.y);
+			return initWithSize(CCDialogManager.ResourceWidth, CCDialogManager.ResourceHeight);
 		}
 		
 		public override function initWithSize(w:Number, h:Number):Boolean
