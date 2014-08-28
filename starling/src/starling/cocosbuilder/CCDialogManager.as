@@ -88,6 +88,29 @@ package starling.cocosbuilder
 			return mModalDialogs.indexOf(dialog) >= 0 || mModelessDialogs.indexOf(dialog) >= 0;
 		}
 		
+		public function loadCCB(res:String, resArray:Array, callback:Function):CCBFile
+		{
+			var ccbFile:CCBFile = CCBReader.assets.getCCB(res);
+			if (ccbFile == null) {
+				CCBReader.assets.enqueueWithName(res, res);
+				if (resArray != null)
+				{
+					var count:int = resArray.length;
+					for (var i:int = 0; i< count; i++) {
+						CCBReader.assets.enqueueWithName(resArray[i], resArray[i]);
+					}
+				}
+				
+				CCBReader.assets.loadQueue(function(ratio:Number):void {
+					if (ratio == 1) {
+						Starling.juggler.delayCall(callback, 0.15);
+					}
+				});
+				return null;
+			}
+			return ccbFile;
+		}
+		
 		public function createDialog(res:String, type:String = "CCDialog", parameters:Dictionary = null, flags:int = CREATE_DIALOG_FLAG_DEFAULT):CCDialog
 		{
 			return createDialogByURLParser(CCDialogURLParser.create(res, type, parameters), flags);
@@ -102,25 +125,10 @@ package starling.cocosbuilder
 		{
 			if (mRootNode == null) { throw new ArgumentError("root node cannot be null"); return null; }
 			
-			var ccbFile:CCBFile = CCBReader.assets.getCCB(urlParser.resource);
+			var ccbFile:CCBFile = loadCCB(urlParser.resource, urlParser.getParameterStringArray("__load"), function():void {
+				createDialogByURLParser(urlParser, flags);
+			});
 			if (ccbFile == null) {
-				CCBReader.assets.enqueueWithName(urlParser.resource, urlParser.resource);
-				var loadArray:Array = urlParser.getParameterStringArray("__load");
-				if (loadArray != null)
-				{
-					var count:int = loadArray.length;
-					for (var i:int = 0; i< count; i++) {
-						CCBReader.assets.enqueueWithName(loadArray[i], loadArray[i]);
-					}
-				}
-				
-				CCBReader.assets.loadQueue(function(ratio:Number):void {
-					if (ratio == 1) {
-						Starling.juggler.delayCall(function():void {
-							createDialogByURLParser(urlParser, flags);
-						}, 0.15);
-					}
-				});
 				return null;
 			}
 			
@@ -190,6 +198,10 @@ package starling.cocosbuilder
 				mRootNode.removeChild(dialog);
 				mDestroyedDialogs.push(dialog);
 			}
+		}
+		
+		public static function loadCCB(res:String, resArray:Array, callback:Function):CCBFile {
+			return sCurrent.loadCCB(res, resArray, callback);
 		}
 		
 		public static function createDialog(res:String, type:String = "CCDialog", parameters:Dictionary = null, flags:int = CREATE_DIALOG_FLAG_DEFAULT):CCDialog {

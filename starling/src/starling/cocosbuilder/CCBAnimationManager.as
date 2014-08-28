@@ -50,7 +50,7 @@ package starling.cocosbuilder
 		private var mCurrentSequence:CCBSequence = null;
 		
 		/** helper objects */
-		public static var sLocalPosition:Point = new Point;
+		public var sLocalPosition:Point = new Point;
 		
 		public function CCBAnimationManager(ccbFile:CCBFile, root:CCNode)
 		{
@@ -177,6 +177,9 @@ package starling.cocosbuilder
 			var coreObject:CCNode = nodeObject;
 			if (coreObject != null)
 			{
+				if (coreObject.animationManager != null && coreObject.animationManager != this)
+					return;
+				
 				var nodeInfo:CCNodeProperty = coreObject.nodeProperty;
 				if (nodeInfo == null)
 					throw new Error("[CCBAnimationManager] advanceRecurse: object without node property");

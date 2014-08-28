@@ -6,8 +6,10 @@ package scenes
 	import scenes.cocos2d.PbMain;
 	
 	import starling.cocosbuilder.CCBFile;
+	import starling.cocosbuilder.CCBReader;
 	import starling.cocosbuilder.CCDialogManager;
 	import starling.cocosbuilder.CCLayer;
+	import starling.cocosbuilder.CCNode;
 	import starling.cocosbuilder.CCSprite;
 	import starling.events.Event;
 	
@@ -22,26 +24,26 @@ package scenes
 			addEventListener(Event.ADDED_TO_STAGE, onAddToStage);
         }
 		
+		private function addFlight():void
+		{
+			var ccbFile:CCBFile = CCBReader.assets.getCCB("ccb/Flight.ccbi");
+			var node:CCNode = ccbFile.createNodeGraph();
+			node.x = CCDialogManager.CenterX;
+			node.y = CCDialogManager.CenterY;
+			node.scaleX = 0.5;
+			node.scaleY = 0.5;
+			addChild(node);
+		}
+		
 		private function onAddToStage(event:Event):void
 		{
 			var dialogManager:CCDialogManager = new CCDialogManager(this, stage.stageWidth, stage.stageHeight, 320, 480);
 			dialogManager.makeCurrent();
 
 			CCDialogManager.createDialogByURL("CCDialog:ccb/Main.ccbi");
-			/*var layer:CCLayer = CCLayer.createWithSize(320, 480);
-			layer.x = CCDialogManager.CenterX;
-			layer.y = CCDialogManager.CenterY;
-			layer.anchorPoint = new Point(0.5, 0.5);
-			this.addChild(layer);
-			var layer2:CCLayer = CCLayer.createWithSize(253, 75);
-			layer2.x = 127;
-			layer2.y = 442;
-			layer2.anchorPoint = new Point(0.5, 0.5);
-			layer.addChild(layer2);
-			layer2.offsetY += layer.contentSizeY;
-			var sprite:CCSprite = CCSprite.create("button_medium");
-			layer2.addChild(sprite);
-			sprite.offsetY += layer2.contentSizeY;*/
+			/*if (CCDialogManager.loadCCB("ccb/Flight.ccbi", null,  addFlight) != null) {
+				addFlight();
+			}*/
 		}
     }
 }
