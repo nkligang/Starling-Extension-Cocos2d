@@ -16,9 +16,7 @@ package starling.cocosbuilder
 	import starling.display.Quad;
 
 	public class CCLayerColor extends CCLayer
-	{
-		protected var mQuad:Quad;
-		
+	{		
 		public function CCLayerColor()
 		{
 		}

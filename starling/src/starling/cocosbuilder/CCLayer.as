@@ -17,7 +17,7 @@ package starling.cocosbuilder
 
 	public class CCLayer extends CCNode
 	{		
-		private var mQuad:Quad;
+		protected var mQuad:Quad;
 		
 		public function CCLayer()
 		{
