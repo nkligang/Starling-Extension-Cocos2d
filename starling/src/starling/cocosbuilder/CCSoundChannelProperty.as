@@ -10,22 +10,11 @@
 
 package starling.cocosbuilder
 {
-	public class CCBSequence
+	public class CCSoundChannelProperty
 	{
-		public var duration:Number;
-		public var name:String;
-		public var sequenceId:int;
-		public var chainedSequenceId:int;
-		public var soundChannel:CCBSequenceProperty;
-		public var callbackChannel:CCBSequenceProperty;
-		
-		public function CCBSequence(_duration:Number, _name:String, 
-									_sequenceId:int, _chainedSequenceId:int)
-		{
-			duration = _duration;
-			name = _name;
-			sequenceId = _sequenceId;
-			chainedSequenceId = _chainedSequenceId;
-		}
+		public var file:String;
+		public var pitch:Number;
+		public var pan:Number;
+		public var gain:Number;				
 	}
 }

@@ -73,6 +73,7 @@ package starling.cocosbuilder
 				var name:String = dataCCB.readCachedString();
 				var sequenceId:int = dataCCB.readIntWithSign(false);
 				var chainedSequenceId:int = dataCCB.readIntWithSign(true);
+				var sequence:CCBSequence = new CCBSequence(length, name, sequenceId, chainedSequenceId);
 				
 				if (mFileVersion == 5)
 				{
@@ -81,13 +82,23 @@ package starling.cocosbuilder
 						throw new Error("no callback key frames permit");
 					
 					var numSoundKeyframes:int = dataCCB.readIntWithSign(false);
+					if (numSoundKeyframes > 0) {
+						sequence.soundChannel = new CCBSequenceProperty();
+					}
 					for (var j:int = 0; j < numSoundKeyframes; j++)
 					{
-						throw new Error("not implement");
+						var keyfame:CCBKeyframe = new CCBKeyframe();
+						keyfame.time = dataCCB.readFloat();
+						var soundProperty:CCSoundChannelProperty = new CCSoundChannelProperty();
+						soundProperty.file = dataCCB.readCachedString();
+						soundProperty.pitch = dataCCB.readFloat();
+						soundProperty.pan = dataCCB.readFloat();
+						soundProperty.gain = dataCCB.readFloat();
+						keyfame.value = soundProperty;
+						sequence.soundChannel.addKeyframe(keyfame);
 					}
 				}
 				
-				var sequence:CCBSequence = new CCBSequence(length, name, sequenceId, chainedSequenceId);
 				if (mSequences == null) mSequences = new <CCBSequence>[];
 				mSequences[i] = sequence;
 			}
