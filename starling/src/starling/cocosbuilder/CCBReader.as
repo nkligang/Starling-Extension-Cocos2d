@@ -90,7 +90,7 @@ package starling.cocosbuilder
 						var keyfame:CCBKeyframe = new CCBKeyframe();
 						keyfame.time = dataCCB.readFloat();
 						var soundProperty:CCSoundChannelProperty = new CCSoundChannelProperty();
-						soundProperty.file = dataCCB.readCachedString();
+						soundProperty.file = new CCSoundRef(mAssertManager, dataCCB.readCachedString());
 						soundProperty.pitch = dataCCB.readFloat();
 						soundProperty.pan = dataCCB.readFloat();
 						soundProperty.gain = dataCCB.readFloat();

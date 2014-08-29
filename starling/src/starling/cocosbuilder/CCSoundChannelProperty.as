@@ -12,7 +12,7 @@ package starling.cocosbuilder
 {
 	public class CCSoundChannelProperty
 	{
-		public var file:String;
+		public var file:CCSoundRef;
 		public var pitch:Number;
 		public var pan:Number;
 		public var gain:Number;				
