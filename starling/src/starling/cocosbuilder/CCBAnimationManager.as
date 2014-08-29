@@ -49,7 +49,6 @@ package starling.cocosbuilder
 		private var mCurrentCycle:int;
 
 		private var mCurrentSequence:CCBSequence = null;
-		private var mSequenceSoundState:Vector.<int> = null;
 		
 		/** helper objects */
 		public var sLocalPosition:Point = new Point;
@@ -378,6 +377,7 @@ package starling.cocosbuilder
 				if (soundProperty == null) continue;
 				if (soundProperty.file == null) continue;
 				var sound:Sound = soundProperty.file.getSound();
+				if (sound == null) continue;
 				sound.play(-mCurrentTime * 1000);
 			}
 		}

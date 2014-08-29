@@ -17,7 +17,6 @@ package starling.cocosbuilder
 		private var mAssertManager:AssetManager;
 		
 		private var mCCBFilePath:String;
-		private var mSriteFile:String;
 		
 		private var mCCBFile:CCBFile;
 		
