@@ -11,6 +11,7 @@
 package starling.cocosbuilder
 {
 	import flash.geom.Point;
+	import flash.media.Sound;
 	import flash.utils.Dictionary;
 	
 	import starling.animation.IAnimatable;
@@ -48,6 +49,7 @@ package starling.cocosbuilder
 		private var mCurrentCycle:int;
 
 		private var mCurrentSequence:CCBSequence = null;
+		private var mSequenceSoundState:Vector.<int> = null;
 		
 		/** helper objects */
 		public var sLocalPosition:Point = new Point;
@@ -100,6 +102,7 @@ package starling.cocosbuilder
 			mRepeatCount = loop ? 0 : 1;
 			mDelay = delay;
 			advanceRecurse(mRootNode, null, reset);
+			advanceSound(mRootNode, null, false);
 			
 			Starling.juggler.add(this);
 			return true;
@@ -152,6 +155,8 @@ package starling.cocosbuilder
 					mCurrentCycle++;
 					if (mRepeatCount > 1) mRepeatCount--;
 					if (mOnRepeat != null) mOnRepeat.apply(null, mOnRepeatArgs);
+					
+					advanceSound(mRootNode, null, false);
 				}
 				else
 				{
@@ -355,6 +360,25 @@ package starling.cocosbuilder
 				if (child is CCNode) {
 					advanceRecurse(child as CCNode, nodeObject, reset);
 				}
+			}
+		}
+		
+		public function advanceSound(nodeObject:CCNode, parentObject:CCNode, reset:Boolean):void
+		{
+			if (mCurrentSequence == null) return;
+			var soundChanel:CCBSequenceProperty = mCurrentSequence.soundChannel;
+			if (soundChanel == null) return;
+			var keyframes:Vector.<CCBKeyframe> = soundChanel.getKeyframes();
+			var numKeyframe:int = keyframes.length;
+			for (var i:int = 0; i < numKeyframe; i++)
+			{
+				var frameThis:CCBKeyframe = keyframes[i];
+				if (frameThis == null) continue;
+				var soundProperty:CCSoundChannelProperty = frameThis.value as CCSoundChannelProperty;
+				if (soundProperty == null) continue;
+				if (soundProperty.file == null) continue;
+				var sound:Sound = soundProperty.file.getSound();
+				sound.play(-mCurrentTime * 1000);
 			}
 		}
 		
