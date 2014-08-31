@@ -38,6 +38,8 @@ package scenes.cocos2d
 				CCDialogManager.createDialogByURL("CCDialog:ccb/CCLabelTTF.ccbi");
 			} else if (buttonName == "CCParticleSystemQuad") {
 				CCDialogManager.createDialogByURL("CCDialog:ccb/CCParticleSystemQuad.ccbi");
+			} else if (buttonName == "CCScrollView") {
+				CCDialogManager.createDialogByURL("CCDialog:ccb/CCScrollView.ccbi?__load=ccb/CCScrollViewItem.ccbi");
 			} else if (buttonName == "Back") {
 				{
 					var btn:Button = this.parent.getChildByName("backButton") as Button;

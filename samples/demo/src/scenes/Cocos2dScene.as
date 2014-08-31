@@ -9,6 +9,7 @@ package scenes
 	import scenes.cocos2d.PbCCLabelBMFont;
 	import scenes.cocos2d.PbCCLabelTTF;
 	import scenes.cocos2d.PbCCDialog;
+	import scenes.cocos2d.PbCCScrollView;
 	
 	import starling.cocosbuilder.CCBFile;
 	import starling.cocosbuilder.CCBReader;
@@ -29,6 +30,7 @@ package scenes
 			PbCCLabelBMFont;
 			PbCCLabelTTF;
 			PbCCDialog;
+			PbCCScrollView;
 			CCBFile.CustomClassPrefix = "scenes.cocos2d.";
 			
 			addEventListener(Event.ADDED_TO_STAGE, onAddToStage);
