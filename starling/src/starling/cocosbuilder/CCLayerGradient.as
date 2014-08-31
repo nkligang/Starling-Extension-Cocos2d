@@ -49,6 +49,36 @@ package starling.cocosbuilder
 			return setColorPoint(startColor, endColor, new Point(0, -1));
 		}
 		
+		public override function initWithNodeProperty(nodeInfo:CCNodeProperty):Boolean
+		{
+			var absoluteContentSize:Point = nodeInfo.getAbsoluteContentSize(null, null);
+			initWithSize(absoluteContentSize.x, absoluteContentSize.y);
+			
+			var startColorObj:Object = nodeInfo.getProperty(CCNodeProperty.CCBNodePropertyStartColor);
+			var startColor:uint = startColorObj != null ? startColorObj as uint : Color.WHITE;
+			var endColorObj:Object = nodeInfo.getProperty(CCNodeProperty.CCBNodePropertyEndColor);
+			var endColor:uint = endColorObj != null ? endColorObj as uint : Color.WHITE;
+			var midColor:uint = CCNodeProperty.getColorInterpolation(startColor, endColor, 0.5);
+			var startOpacityObj:Object = nodeInfo.getProperty(CCNodeProperty.CCBNodePropertyStartOpacity);
+			var startAlpha:Number = CCNodeProperty.getOpacityFloat(startOpacityObj != null ? startOpacityObj as int : 255);
+			var endOpacityObj:Object = nodeInfo.getProperty(CCNodeProperty.CCBNodePropertyEndOpacity);
+			var endAlpha:Number = CCNodeProperty.getOpacityFloat(endOpacityObj != null ? endOpacityObj as int : 255);
+			var midAlpha:Number = startAlpha + (endAlpha - startAlpha) * 0.5;
+			var vectorObj:Object = nodeInfo.getProperty(CCNodeProperty.CCBNodePropertyVector);
+			
+			var vector:Point = vectorObj != null ? vectorObj as Point : new Point(0, 0);
+			startColor = Color.setAlphaFloat(startColor, startAlpha);
+			endColor = Color.setAlphaFloat(endColor, endAlpha);
+			vector.y = -vector.y;
+			setColorPoint(startColor, endColor, vector);
+			
+			this.alpha = nodeInfo.getOpacity();
+			this.blendMode = nodeInfo.getBlendFunc();
+			this.anchorPoint = nodeInfo.getAnchorPoint();
+			this.ignoreAnchorPointForPosition = nodeInfo.isIgnoreAnchorPointForPosition();
+			return true;
+		}
+		
 		public function setColorPoint(startColor:uint, endColor:uint, vector:Point):Boolean
 		{
 			var startAlpha:Number = Color.getAlphaFloat(startColor);

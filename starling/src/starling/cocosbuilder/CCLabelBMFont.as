@@ -44,7 +44,7 @@ package starling.cocosbuilder
 			var labelHeight:int = dimensions.y == 0 ? 50 : dimensions.y;
 			
 			var fntFile:CCBMFont = nodeInfo.getProperty(CCNodeProperty.CCBNodePropertyFntFile) as CCBMFont;
-			init(labelWidth, labelHeight, string, fntFile.fontName, 25, 0x0, false);
+			init(labelWidth, labelHeight, string, fntFile.fontName, fntFile.fontSize, 0x0, false);
 			
 			mTextField.hAlign = nodeInfo.getHorizontalAlignment();
 			mTextField.vAlign = nodeInfo.getVerticalAlignment();

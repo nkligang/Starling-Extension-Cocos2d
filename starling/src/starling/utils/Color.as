@@ -61,6 +61,11 @@ package starling.utils
         {
             return (alpha << 24) | (red << 16) | (green << 8) | blue;
         }
+		
+		public static function setAlphaFloat(color:uint, alpha:Number):uint {
+			color = color | ((alpha * 255) << 24);
+			return color;
+		}
         
         /** @private */
         public function Color() { throw new AbstractClassError(); }

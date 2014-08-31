@@ -67,6 +67,7 @@ package starling.cocosbuilder
 			this.alpha = nodeInfo.getOpacity();
 			this.blendMode = nodeInfo.getBlendFunc();
 			this.anchorPoint = nodeInfo.getAnchorPoint();
+			this.ignoreAnchorPointForPosition = nodeInfo.isIgnoreAnchorPointForPosition();
 			return true;
 		}
 		

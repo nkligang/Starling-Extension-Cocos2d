@@ -359,6 +359,7 @@ package starling.extensions
 				mMaxRadius = 0;
 				mMaxRadiusVariance = 0;
 				mRotatePerSecond = 0;
+				mRotatePerSecondVariance = 0;
 			}
 			else
 			{

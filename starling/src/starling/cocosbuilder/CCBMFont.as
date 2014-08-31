@@ -10,9 +10,9 @@
 
 package starling.cocosbuilder
 {
-	import starling.utils.AssetManager;
-	import starling.text.TextField;
 	import starling.text.BitmapFont;
+	import starling.text.TextField;
+	import starling.utils.AssetManager;
 
 	public class CCBMFont
 	{
@@ -42,5 +42,10 @@ package starling.cocosbuilder
 		}
 		
 		public function get fontName():String { return mFntFile; }
+		public function get fontSize():int {
+			var bmFont:BitmapFont = getBitmapFont();
+			if (bmFont == null) return 25;
+			return bmFont.size; 
+		}
 	}
 }

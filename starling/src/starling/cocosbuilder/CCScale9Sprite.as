@@ -119,7 +119,6 @@ package starling.cocosbuilder
 				this.alpha = nodeInfo.getOpacity();
 				
 				this.touchable = nodeInfo.isTouchable();
-				this.anchorPoint = nodeInfo.getAnchorPoint();
 			}
 			else
 			{

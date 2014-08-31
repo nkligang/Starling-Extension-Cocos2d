@@ -152,6 +152,10 @@ package starling.cocosbuilder
 			nodeObject.scaleX = localScale.x;
 			nodeObject.scaleY = localScale.y;
 
+			// anchor point
+			nodeObject.anchorPoint = nodeInfo.getAnchorPoint();
+			nodeObject.ignoreAnchorPointForPosition = nodeInfo.isIgnoreAnchorPointForPosition();
+			
 			nodeObject.visible = nodeInfo.isVisible();
 			
 			var mChildren:Vector.<CCNodeProperty> = nodeInfo.getChildren();

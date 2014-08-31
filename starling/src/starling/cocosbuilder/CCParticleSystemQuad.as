@@ -12,6 +12,7 @@ package starling.cocosbuilder
 {
 	import flash.utils.Dictionary;
 	
+	import starling.core.RenderSupport;
 	import starling.core.Starling;
 	import starling.extensions.ColorArgb;
 	import starling.extensions.PDParticleSystem;
@@ -79,6 +80,12 @@ package starling.cocosbuilder
 			Starling.juggler.add(mParticleSystem);
 			mParticleSystem.start();
 			return true;
+		}
+		
+		public override function render(support:RenderSupport, parentAlpha:Number):void
+		{
+			CCNode.renderObject(support, parentAlpha, mParticleSystem);
+			super.render(support, parentAlpha);
 		}
 	}
 }
