@@ -879,8 +879,8 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>7</real>
-							<real>275</real>
+							<real>84</real>
+							<real>254</real>
 							<integer>0</integer>
 						</array>
 					</dict>
@@ -1004,8 +1004,8 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>93</real>
-							<real>290</real>
+							<real>172</real>
+							<real>270</real>
 							<integer>0</integer>
 						</array>
 					</dict>

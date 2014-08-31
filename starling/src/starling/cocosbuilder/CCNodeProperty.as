@@ -108,6 +108,7 @@ package starling.cocosbuilder
 		}
 		
 		public function getProperty(name:String):Object { return mProperties[name]; }
+		public function hasProperty(name:String):Boolean { return mProperties[name] != null; }
 		
 		public function get className():String { return mClassName; }
 		

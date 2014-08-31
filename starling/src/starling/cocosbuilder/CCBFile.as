@@ -153,7 +153,13 @@ package starling.cocosbuilder
 			nodeObject.scaleY = localScale.y;
 
 			// anchor point
-			nodeObject.anchorPoint = nodeInfo.getAnchorPoint();
+			// bug fixed: CCSale9Sprite with AchorPoint(0,0) is not exported!
+			if (nodeInfo.className == CCBNodeClassName_CCScale9Sprite) {
+				if (nodeInfo.hasProperty(CCNodeProperty.CCBNodePropertyAnchorPoint))
+					nodeObject.anchorPoint = nodeInfo.getAnchorPoint();
+			} else {
+				nodeObject.anchorPoint = nodeInfo.getAnchorPoint();
+			}
 			nodeObject.ignoreAnchorPointForPosition = nodeInfo.isIgnoreAnchorPointForPosition();
 			
 			nodeObject.visible = nodeInfo.isVisible();
