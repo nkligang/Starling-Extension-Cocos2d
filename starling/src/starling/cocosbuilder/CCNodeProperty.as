@@ -297,8 +297,8 @@ package starling.cocosbuilder
 
 		public function getAnchorPoint():Point {
 			var anchorPointObj:Point = mProperties[CCBNodePropertyAnchorPoint] as Point;
-			// default anchor point is (0,0)
-			var anchorPoint:Point = anchorPointObj != null ? anchorPointObj : new Point(0.0, 0.0);
+			// default anchor point is (0.5,0.5)
+			var anchorPoint:Point = anchorPointObj != null ? anchorPointObj : new Point(0.5, 0.5);
 			return anchorPoint;
 		}
 		
