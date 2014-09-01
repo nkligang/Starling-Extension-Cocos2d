@@ -40,6 +40,8 @@ package scenes.cocos2d
 				CCDialogManager.createDialogByURL("CCDialog:ccb/CCParticleSystemQuad.ccbi");
 			} else if (buttonName == "CCScrollView") {
 				CCDialogManager.createDialogByURL("CCDialog:ccb/CCScrollView.ccbi?__load=ccb/CCScrollViewItem.ccbi");
+			} else if (buttonName == "CCBAnimationManager") {
+				CCDialogManager.createDialogByURL("CCDialog:ccb/CCBAnimationManager.ccbi");
 			} else if (buttonName == "Back") {
 				{
 					var btn:Button = this.parent.getChildByName("backButton") as Button;

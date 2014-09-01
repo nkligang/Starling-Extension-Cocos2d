@@ -21,8 +21,9 @@ package starling.cocosbuilder
 	import starling.textures.Texture;
 	import starling.utils.Color;
 	import starling.utils.deg2rad;
+	import starling.events.EventDispatcher;
 	
-	public class CCBAnimationManager extends CCNode implements IAnimatable
+	public class CCBAnimationManager extends EventDispatcher implements IAnimatable
 	{		
 		private var mCCBFile:CCBFile;
 		
@@ -180,10 +181,7 @@ package starling.cocosbuilder
 			// animate core object
 			var coreObject:CCNode = nodeObject;
 			if (coreObject != null)
-			{
-				if (coreObject.animationManager != null && coreObject.animationManager != this)
-					return;
-				
+			{				
 				var nodeInfo:CCNodeProperty = coreObject.nodeProperty;
 				if (nodeInfo == null)
 					throw new Error("[CCBAnimationManager] advanceRecurse: object without node property");
@@ -350,6 +348,10 @@ package starling.cocosbuilder
 					}
 				}
 			}
+			
+			// avoid sub ccbi animation
+			if (coreObject.animationManager != null && coreObject.animationManager != this)
+				return;
 			
 			// recurse each children
 			var numChildren:int = nodeObject.numChildren;

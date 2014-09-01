@@ -52,10 +52,7 @@ package starling.cocosbuilder
 					var ccbFile:CCBFile = ccb.getCCB();
 					if (ccbFile != null)
 					{
-						var ccbAnim:CCNode = ccbFile.createNodeGraph();
-						
-						ccbAnim.anchorPoint = nodeInfo.getAnchorPoint();
-						nodeObject = ccbAnim;
+						nodeObject = ccbFile.createNodeGraph();
 					}
 					else
 					{
