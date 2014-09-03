@@ -12,13 +12,17 @@ package scenes.cocos2d
 {
 	import starling.cocosbuilder.CCDialog;
 	import starling.cocosbuilder.CCDialogManager;
+	import starling.cocosbuilder.CCLabelTTF;
 	import starling.events.Event;
+	import starling.utils.HAlign;
+	import starling.utils.VAlign;
 
 	public class PbCCLabelTTF extends CCDialog
 	{
 		public function PbCCLabelTTF()
 		{
 			addEventListener(Event.TRIGGERED, onButtonTriggered);
+			addEventListener(Event.ADDED_TO_STAGE, onAddToStage);
 		}
 				
 		private function onButtonTriggered(event:Event):void
@@ -30,6 +34,16 @@ package scenes.cocos2d
 			if (buttonName == "Back") {
 				CCDialogManager.destroyDialog(this);
 			}
+		}
+		
+		private function onAddToStage(event:Event):void
+		{
+			var text1:CCLabelTTF = this.getChildByNameRecursive("text1") as CCLabelTTF;
+			text1.text = "Hello world";
+			var text2:CCLabelTTF = this.getChildByNameRecursive("text2") as CCLabelTTF;
+			text2.text = "Hello world";
+			text2.hAlign = HAlign.RIGHT;
+			text2.vAlign = VAlign.BOTTOM;
 		}
 	}
 }

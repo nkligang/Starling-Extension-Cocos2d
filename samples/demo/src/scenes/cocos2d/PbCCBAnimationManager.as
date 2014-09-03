@@ -12,15 +12,12 @@ package scenes.cocos2d
 {
 	import starling.cocosbuilder.CCDialog;
 	import starling.cocosbuilder.CCDialogManager;
-	import starling.cocosbuilder.CCLabelBMFont;
+	import starling.cocosbuilder.CCNode;
 	import starling.events.Event;
-	import starling.text.TextFieldAutoSize;
-	import starling.utils.HAlign;
-	import starling.utils.VAlign;
 
-	public class PbCCLabelBMFont extends CCDialog
+	public class PbCCBAnimationManager extends CCDialog
 	{
-		public function PbCCLabelBMFont()
+		public function PbCCBAnimationManager()
 		{
 			addEventListener(Event.TRIGGERED, onButtonTriggered);
 			addEventListener(Event.ADDED_TO_STAGE, onAddToStage);
@@ -39,13 +36,9 @@ package scenes.cocos2d
 		
 		private function onAddToStage(event:Event):void
 		{
-			var text1:CCLabelBMFont = this.getChildByNameRecursive("text1") as CCLabelBMFont;
-			text1.text = "Hello world";
-			var text2:CCLabelBMFont = this.getChildByNameRecursive("text2") as CCLabelBMFont;
-			text2.autoSize = TextFieldAutoSize.NONE;
-			text2.text = "Hello world";
-			text2.hAlign = HAlign.RIGHT;
-			text2.vAlign = VAlign.BOTTOM;
+			var anim1:CCNode = this.getChildByNameRecursive("anim1") as CCNode;
+			anim1.scaleX = 0.25;
+			anim1 = anim1;
 		}
 	}
 }

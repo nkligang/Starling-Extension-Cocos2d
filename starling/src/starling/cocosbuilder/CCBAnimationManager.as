@@ -116,6 +116,9 @@ package starling.cocosbuilder
 		
 		public function advanceTime(time:Number):void
 		{
+			// if the object is not connected to the stage, we should not advance 
+			if (mRootNode.root == null) return;
+			
 			if (time == 0 || (mRepeatCount == 1 && mCurrentTime == mTotalTime)) return;
 			
 			if (mCurrentSequence == null) return;
@@ -189,14 +192,11 @@ package starling.cocosbuilder
 				var position:CCTypeSize = nodeInfo.getPositionEx();
 				CCNodeProperty.getPosition(position, parentObject, nodeObject, sLocalPosition);
 				var sprite:CCSprite = coreObject as CCSprite;
-				if (reset)
+				if (reset && mRootNode != nodeObject)
 				{
 					// position
-					if (mRootNode != nodeObject)
-					{
-					  nodeObject.x =  sLocalPosition.x;
-					  nodeObject.y = -sLocalPosition.y;
-					}
+					nodeObject.x =  sLocalPosition.x;
+				    nodeObject.y = -sLocalPosition.y;
 					// rotation
 					nodeObject.rotation = nodeInfo.getRotation();
 					// scale

@@ -89,5 +89,20 @@ package starling.cocosbuilder
 			CCNode.renderObject(support, parentAlpha, mTextField);
 			super.render(support, parentAlpha);
 		}
+		
+		/** The displayed text. */
+		public function get text():String { return mTextField.text; }
+		public function set text(value:String):void { mTextField.text = value; }
+		
+		/** The horizontal alignment of the text. @default center @see starling.utils.HAlign */
+		public function get hAlign():String { return mTextField.hAlign; }
+		public function set hAlign(value:String):void { mTextField.hAlign = value; }
+		
+		/** The vertical alignment of the text. @default center @see starling.utils.VAlign */
+		public function get vAlign():String { return mTextField.vAlign; }
+		public function set vAlign(value:String):void { mTextField.vAlign = value; }
+		
+		public function get autoSize():String { return mTextField.autoSize; }
+		public function set autoSize(value:String):void { mTextField.autoSize = value; }
 	}
 }
