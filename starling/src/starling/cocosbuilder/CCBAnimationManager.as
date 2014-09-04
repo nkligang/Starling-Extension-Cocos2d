@@ -90,6 +90,11 @@ package starling.cocosbuilder
 			return startAnimation(mCCBFile.getSequenceByIndex(index), loop, delay);
 		}
 		
+		public function startAnimationBySequenceID(id:uint, loop:Boolean = false, delay:Number = 0):Boolean
+		{
+			return startAnimation(mCCBFile.getSequenceBySequenceID(id), loop, delay);
+		}
+		
 		private function startAnimation(sequence:CCBSequence, loop:Boolean, delay:Number):Boolean
 		{
 			if (sequence == null) return false;

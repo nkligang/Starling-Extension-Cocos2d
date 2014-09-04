@@ -184,7 +184,7 @@ package starling.cocosbuilder
 			node.animationManager = actionManager;
 			
 			if (mAutoPlaySequenceId >= 0)
-				actionManager.startAnimationByIndex(mAutoPlaySequenceId, true);
+				actionManager.startAnimationBySequenceID(mAutoPlaySequenceId, true);
 			return node;
 		}
 		
@@ -210,8 +210,22 @@ package starling.cocosbuilder
 			return null;
 		}
 		
+		public function getSequenceBySequenceID(id:uint):CCBSequence
+		{
+			var numSequence:int = mSequences.length;
+			for (var i:int = 0; i < numSequence; ++i) {
+				var sequence:CCBSequence = mSequences[i];
+				if (sequence.sequenceId == id)
+					return sequence;
+			}
+			return null;
+		}
+		
 		public function getSequenceByIndex(idx:uint):CCBSequence
 		{
+			var numSequence:int = mSequences.length;
+			if (idx < 0 || idx >= numSequence)
+				throw new Error("Out of index");
 			return mSequences[idx];
 		}
 		

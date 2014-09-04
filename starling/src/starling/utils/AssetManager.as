@@ -619,7 +619,9 @@ package starling.utils
 						}
 						else
 						{
-							texture = getTexture(getName(metas["realTextureFileName"]));
+							texture = getTexture(realTextureFileName);
+							if (texture == null)
+								texture = getTexture(getName(realTextureFileName));
 						}
 						
 						if (texture)
