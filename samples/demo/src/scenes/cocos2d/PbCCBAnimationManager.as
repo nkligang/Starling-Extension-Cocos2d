@@ -36,9 +36,9 @@ package scenes.cocos2d
 		
 		private function onAddToStage(event:Event):void
 		{
-			var anim1:CCNode = this.getChildByNameRecursive("anim1") as CCNode;
-			anim1.scaleX = 0.25;
-			anim1 = anim1;
+			//var anim1:CCNode = this.getChildByNameRecursive("anim1") as CCNode;
+			//anim1.scaleX = 0.25;
+			//anim1 = anim1;
 		}
 	}
 }
