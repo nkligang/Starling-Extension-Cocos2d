@@ -95,10 +95,8 @@ package starling.cocosbuilder
 			return startAnimation(mCCBFile.getSequenceBySequenceID(id), loop, delay);
 		}
 		
-		private function startAnimation(sequence:CCBSequence, loop:Boolean, delay:Number):Boolean
+		private function setSequence(sequence:CCBSequence, loop:Boolean, delay:Number):void
 		{
-			if (sequence == null) return false;
-			
 			var reset:Boolean = mCurrentSequence != null && mCurrentSequence.sequenceId != sequence.sequenceId;
 			mCurrentSequence = sequence;
 			
@@ -108,6 +106,13 @@ package starling.cocosbuilder
 			mDelay = delay;
 			advanceRecurse(mRootNode, null, reset);
 			advanceSound(mRootNode, null, false);
+		}
+		
+		private function startAnimation(sequence:CCBSequence, loop:Boolean, delay:Number):Boolean
+		{
+			if (sequence == null) return false;
+			
+			setSequence(sequence, loop, delay);
 			
 			Starling.juggler.add(this);
 			return true;
@@ -157,7 +162,7 @@ package starling.cocosbuilder
 			
 			if (previousTime < mTotalTime && mCurrentTime >= mTotalTime)
 			{
-				if (mRepeatCount == 0 || mRepeatCount > 1)
+				if (mRepeatCount > 1)
 				{
 					mCurrentTime = -mRepeatDelay;
 					mCurrentCycle++;
@@ -168,15 +173,20 @@ package starling.cocosbuilder
 				}
 				else
 				{
-					// save callback & args: they might be changed through an event listener
-					var onComplete:Function = mOnComplete;
-					var onCompleteArgs:Array = mOnCompleteArgs;
+					if (mCurrentSequence.chainedSequenceId < 0) {
+						// save callback & args: they might be changed through an event listener
+						var onComplete:Function = mOnComplete;
+						var onCompleteArgs:Array = mOnCompleteArgs;
 					
-					// in the 'onComplete' callback, people might want to call "tween.reset" and
-					// add it to another juggler; so this event has to be dispatched *before*
-					// executing 'onComplete'.
-					dispatchEventWith(Event.REMOVE_FROM_JUGGLER);
-					if (onComplete != null) onComplete.apply(null, onCompleteArgs);
+						// in the 'onComplete' callback, people might want to call "tween.reset" and
+						// add it to another juggler; so this event has to be dispatched *before*
+						// executing 'onComplete'.
+						dispatchEventWith(Event.REMOVE_FROM_JUGGLER);
+						if (onComplete != null) onComplete.apply(null, onCompleteArgs);
+					} else {
+						setSequence(mCCBFile.getSequenceBySequenceID(mCurrentSequence.chainedSequenceId), false, 0);
+					}
+					return;
 				}
 			}
 			
@@ -188,7 +198,7 @@ package starling.cocosbuilder
 		{
 			// animate core object
 			var coreObject:CCNode = nodeObject;
-			if (coreObject != null)
+			if (coreObject != null && mRootNode != nodeObject)
 			{				
 				var nodeInfo:CCNodeProperty = coreObject.nodeProperty;
 				if (nodeInfo == null)
@@ -197,7 +207,7 @@ package starling.cocosbuilder
 				var position:CCTypeSize = nodeInfo.getPositionEx();
 				CCNodeProperty.getPosition(position, parentObject, nodeObject, sLocalPosition);
 				var sprite:CCSprite = coreObject as CCSprite;
-				if (reset && mRootNode != nodeObject)
+				if (reset)
 				{
 					// position
 					nodeObject.x =  sLocalPosition.x;
