@@ -56,57 +56,57 @@ package starling.cocosbuilder
 					}
 					else
 					{
-						trace("createDisplayNodeGraph: ccb file is not prepared.");
+						throw new Error("createDisplayNodeGraph: ccb file is not prepared.");
 					}
 				}
 				else
 				{
-					trace("createDisplayNodeGraph: ccb node without ccb file referenced.");
+					throw new Error("createDisplayNodeGraph: ccb node without ccb file referenced.");
 				}					
 			}
 			else if (nodeInfo.className == CCBNodeClassName_CCSprite)
 			{
-				nodeObject = CCSprite.createWithNodeProperty(nodeInfo);
+				nodeObject = new CCSprite();
 			}
 			else if (nodeInfo.className == CCBNodeClassName_CCScale9Sprite)
 			{
-				nodeObject = CCScale9Sprite.createWithNodeProperty(nodeInfo);
+				nodeObject = new CCScale9Sprite();
 			}
 			else if (nodeInfo.className == CCBNodeClassName_CCLabelTTF)
 			{
-				nodeObject = CCLabelTTF.createWithNodeProperty(nodeInfo);
+				nodeObject = new CCLabelTTF();
 			}
 			else if (nodeInfo.className == CCBNodeClassName_CCLabelBMFont)
 			{
-				nodeObject = CCLabelBMFont.createWithNodeProperty(nodeInfo);
+				nodeObject = new CCLabelBMFont();
 			}
 			else if (nodeInfo.className == CCBNodeClassName_CCNode)
 			{
-				nodeObject = CCNode.createWithNodeProperty(nodeInfo);
+				nodeObject = new CCNode();
 			}
 			else if (nodeInfo.className == CCBNodeClassName_CCLayer)
 			{
-				nodeObject = CCLayer.createWithNodeProperty(nodeInfo);
+				nodeObject = new CCLayer();
 			}
 			else if (nodeInfo.className == CCBNodeClassName_CCLayerColor)
 			{
-				nodeObject = CCLayerColor.createWithNodeProperty(nodeInfo);
+				nodeObject = new CCLayerColor();
 			}
 			else if (nodeInfo.className == CCBNodeClassName_CCLayerGradient)
 			{
-				nodeObject = CCLayerGradient.createWithNodeProperty(nodeInfo);
+				nodeObject = new CCLayerGradient();
 			}
 			else if (nodeInfo.className == CCBNodeClassName_CCScrollView)
 			{
-				nodeObject = CCScrollView.createWithNodeProperty(nodeInfo);
+				nodeObject = new CCScrollView();
 			}
 			else if (nodeInfo.className == CCBNodeClassName_CCControlButton)
 			{
-				nodeObject = CCControlButton.createWithNodeProperty(nodeInfo);
+				nodeObject = new CCControlButton();
 			}
 			else if (nodeInfo.className == CCBNodeClassName_CCParticleSystemQuad)
 			{
-				nodeObject = CCParticleSystemQuad.createWithNodeProperty(nodeInfo);
+				nodeObject = new CCParticleSystemQuad();
 			}
 			else
 			{
@@ -114,7 +114,6 @@ package starling.cocosbuilder
 				{
 					var customClassRef:Class = getDefinitionByName(sCustomClassPrefix + nodeInfo.className) as Class;
 					nodeObject = new customClassRef() as CCNode;
-					nodeObject.initWithNodeProperty(nodeInfo);
 				}
 				catch(error:ReferenceError)
 				{
@@ -159,7 +158,11 @@ package starling.cocosbuilder
 			}
 			nodeObject.ignoreAnchorPointForPosition = nodeInfo.isIgnoreAnchorPointForPosition();
 			
+			// visiblity
 			nodeObject.visible = nodeInfo.isVisible();
+			
+			// create display object
+			nodeObject.initWithNodeProperty(nodeInfo);
 			
 			var mChildren:Vector.<CCNodeProperty> = nodeInfo.getChildren();
 			var numChildren:int = mChildren.length;

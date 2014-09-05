@@ -60,14 +60,11 @@ package starling.cocosbuilder
 		
 		public override function initWithNodeProperty(nodeInfo:CCNodeProperty):Boolean
 		{
-			var absoluteContentSize:Point = nodeInfo.getAbsoluteContentSize(null, null);
-			initWithSize(absoluteContentSize.x, absoluteContentSize.y);
+			initWithSize(this.contentSizeX, this.contentSizeY);
 			
 			this.color = nodeInfo.getColor();
 			this.alpha = nodeInfo.getOpacity();
 			this.blendMode = nodeInfo.getBlendFunc();
-			this.anchorPoint = nodeInfo.getAnchorPoint();
-			this.ignoreAnchorPointForPosition = nodeInfo.isIgnoreAnchorPointForPosition();
 			return true;
 		}
 		

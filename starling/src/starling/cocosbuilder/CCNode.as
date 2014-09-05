@@ -38,11 +38,7 @@ package starling.cocosbuilder
 		}
 		
 		public function initWithNodeProperty(nodeInfo:CCNodeProperty):Boolean
-		{
-			var absoluteContentSize:Point = nodeInfo.getAbsoluteContentSize(null, null);
-			this.contentSizeX = absoluteContentSize.x;
-			this.contentSizeY = absoluteContentSize.y;
-			
+		{			
 			this.alpha = 1.0;
 			this.anchorPoint = nodeInfo.getAnchorPoint();
 			return true;

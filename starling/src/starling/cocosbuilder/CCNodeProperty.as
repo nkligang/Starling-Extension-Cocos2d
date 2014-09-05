@@ -29,6 +29,8 @@ package starling.cocosbuilder
 		private var mSequences:Dictionary;
 		private var mProperties:Dictionary;
 		
+		private static var mResolutionScale:Number = 1.0;
+		
 		public static const CCBNodePropertyColor:String                        = "color";
 		public static const CCBNodePropertyOpacity:String                      = "opacity";
 		public static const CCBNodePropertyBlendFunc:String                    = "blendFunc";
@@ -96,6 +98,9 @@ package starling.cocosbuilder
 			mSequences = seqs;
 		}
 		
+		public static function setResolutionScale(value:Number):void { mResolutionScale = value; }
+		public static function getResolutionScale():Number { return mResolutionScale; }
+		
 		public function getSequence(seqId:int):Dictionary
 		{
 			if (mSequences == null) return null;
@@ -123,36 +128,63 @@ package starling.cocosbuilder
 		
 		public static function getOpacityFloat(v:int):Number { return v * 0.00392156862746; }
 		
+		public static function getContainerSize(node:CCNode, result:Point = null):Point
+		{
+			if (result == null) result = new Point(0, 0);
+			if (node != null)
+			{
+				result.x = node.contentSizeX;
+				result.y = node.contentSizeY;
+			}
+			else
+			{
+				result.x = CCDialogManager.ResourceWidth;
+				result.y = CCDialogManager.ResourceHeight;
+			}
+			return result;
+		}
+		
 		public static function getPosition(position:CCTypeSize, parentObject:CCNode, nodeObject:CCNode, result:Point = null):Point
 		{
 			if (result == null) result = new Point(0, 0);
-			var offset:Point = new Point(0, 0);
-			if (parentObject != null)
-			{
-				//parentObject.localOffset(offset);
-			}
+			var containerSize:Point = getContainerSize(parentObject);
 			switch (position.type)
 			{
 				case CCTypeSize.CCTypePositionTypeAbsolute:
 				{
-					result.x = offset.x + position.x;
-					result.y = offset.y + position.y;
+					result.x = position.x;
+					result.y = position.y;
+					return result;
+				}
+				case CCTypeSize.CCTypePositionTypeRelativeTopLeft:
+				{
+					result.x = position.x;
+					result.y = containerSize.y - position.y;
+					return result;
+				}
+				case CCTypeSize.CCTypePositionTypeRelativeTopRight:
+				{
+					result.x = containerSize.x - position.x;
+					result.y = containerSize.y - position.y;
+					return result;
+				}
+				case CCTypeSize.CCTypePositionTypeRelativeBottomRight:
+				{
+					result.x = containerSize.x - position.x;
+					result.y = position.y;
 					return result;
 				}
 				case CCTypeSize.CCTypePositionTypePercentageOfContainerSize:
 				{
-					if (parentObject != null)
-					{
-						result.x = offset.x + parentObject.contentSizeX * position.x / 100;
-						result.y = offset.y + parentObject.contentSizeY * position.y / 100;
-						return result;
-					}
-					else
-					{
-						result.x = CCDialogManager.ResourceWidth  * position.x / 100;
-						result.y = CCDialogManager.ResourceHeight * position.y / 100;
-						return result;
-					}
+					result.x = containerSize.x * position.x / 100;
+					result.y = containerSize.y * position.y / 100;
+					return result;
+				}
+				case CCTypeSize.CCTypePositionTypeMultiplyByResolutionScale:
+				{
+					result.x = position.x * mResolutionScale;
+					result.y = position.y * mResolutionScale;
+					return result;
 				}
 				default:
 				{
@@ -165,31 +197,45 @@ package starling.cocosbuilder
 		
 		public static function getContentSize(contentSize:CCTypeSize, parentObject:CCNode, nodeObject:CCNode, result:Point = null):Point
 		{
+			if (result == null) result = new Point(0, 0);
+			var containerSize:Point = getContainerSize(parentObject);
 			switch (contentSize.type)
 			{
 				case CCTypeSize.CCTypeSizeTypeAbsolute:
 				{
-					if (result == null) return new Point(contentSize.x, contentSize.y);
 					result.x = contentSize.x;
 					result.y = contentSize.y;
 					return result;
 				}
 				case CCTypeSize.CCTypeSizeTypePercentageOfContainerSize:
 				{
-					if (parentObject != null)
-					{
-						if (result == null) return new Point(parentObject.contentSizeX * contentSize.x / 100, parentObject.contentSizeY * contentSize.y / 100);
-						result.x = parentObject.contentSizeX * contentSize.x / 100;
-						result.y = parentObject.contentSizeY * contentSize.y / 100;
-						return result;
-					}
-					else
-					{
-						if (result == null) return new Point(CCDialogManager.ResourceWidth * contentSize.x / 100, CCDialogManager.ResourceHeight * contentSize.y / 100);
-						result.x = CCDialogManager.ResourceWidth  * contentSize.x / 100;
-						result.y = CCDialogManager.ResourceHeight * contentSize.y / 100;
-						return result;
-					}
+					result.x = containerSize.x * contentSize.x / 100;
+					result.y = containerSize.y * contentSize.y / 100;
+					return result;
+				}
+				case CCTypeSize.CCTypeSizeTypeRelativeContainerSize:
+				{
+					result.x = containerSize.x - contentSize.x;
+					result.y = containerSize.y - contentSize.y;
+					return result;
+				}
+				case CCTypeSize.CCTypeSizeTypePercentageWidthFixHeight:
+				{
+					result.x = containerSize.x * contentSize.x / 100;
+					result.y = contentSize.y;
+					return result;
+				}
+				case CCTypeSize.CCTypeSizeTypePercentageHeightFixWidth:
+				{
+					result.x = contentSize.x;
+					result.y = containerSize.y * contentSize.y / 100;
+					return result;
+				}
+				case CCTypeSize.CCTypeSizeTypeMultiplyByResolutionScale:
+				{
+					result.x = contentSize.x * mResolutionScale;
+					result.y = contentSize.y * mResolutionScale;
+					return result;
 				}
 				default:
 				{
