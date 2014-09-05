@@ -74,6 +74,10 @@ package starling.cocosbuilder
 		public override function get color():uint { return mQuad.color; }
 		public override function set color(value:uint):void { mQuad.color = value; }
 		
+		/** The opacity of the object. 0 = transparent, 1 = opaque. */
+		public override function get alpha():Number { return mQuad.alpha; }
+		public override function set alpha(value:Number):void { mQuad.alpha = value; }
+		
 		public override function render(support:RenderSupport, parentAlpha:Number):void
 		{
 			CCNode.renderObject(support, parentAlpha, mQuad);
