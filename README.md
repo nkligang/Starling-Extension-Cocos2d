@@ -2,6 +2,8 @@ load and render CocosBuilder Exported .ccbi file for Starling-Framework
 
 this project is base on Starling-Framework of version 1.4.1
 
+have any problem? email to: nkligang@163.com
+
 ===============================================================
 support:
 
