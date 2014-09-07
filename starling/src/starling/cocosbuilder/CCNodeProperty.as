@@ -76,6 +76,8 @@ package starling.cocosbuilder
 		public static const CCBNodePropertyIsAccelerometerEnabled:String       = "isAccelerometerEnabled";
 		public static const CCBNodePropertyIsKeyboardEnabled:String            = "isKeyboardEnabled";
 		public static const CCBNodePropertyMouseEnabled:String                 = "mouseEnabled";
+		public static const CCBNodePropertySkew:String                         = "skew";
+		public static const CCBNodePropertyTag:String                          = "tag";
 				
 		public function CCNodeProperty(className:String, parent:CCNodeProperty)
 		{
@@ -423,6 +425,18 @@ package starling.cocosbuilder
 			var scale:CCTypeSize = scaleObj != null ? scaleObj : new CCTypeSize(1,1,0);
 			CCNodeProperty.getScale(scale, parentObject, nodeObject, result);
 			return result;
+		}
+		
+		public function getSkew():Point {
+			var skewObj:Point = mProperties[CCBNodePropertySkew] as Point;
+			// default skew is (0.0,0.0)
+			var skew:Point = skewObj != null ? new Point(deg2rad(skewObj.x), -deg2rad(skewObj.y)) : new Point(0.0, 0.0);
+			return skew;
+		}
+		
+		public function getTag():int {
+			var tagObj:Object = mProperties[CCBNodePropertyTag];
+			return tagObj != null ? tagObj as int : -1;
 		}
 	}
 }

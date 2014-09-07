@@ -20,6 +20,7 @@ package starling.cocosbuilder
 		public static const kCCBKeyframeTypeRotation:int     = 5;
 		public static const kCCBKeyframeTypeColor:int        = 6;
 		public static const kCCBKeyframeTypeSoundChannel:int = 7;
+		public static const kCCBKeyframeTypeSkew:int         = 8;
 		
 		public static const CCBKeyframeTypeOpacity:String      = "opacity";
 		public static const CCBKeyframeTypeVisible:String      = "visible";
@@ -29,6 +30,7 @@ package starling.cocosbuilder
 		public static const CCBKeyframeTypeRotation:String     = "rotation";
 		public static const CCBKeyframeTypeColor:String        = "color";
 		public static const CCBKeyframeTypeSoundChannel:String = "soundChannel";
+		public static const CCBKeyframeTypeSkew:String         = "skew";
 
 		public var nameType:int;
 		public var type:int;
@@ -50,6 +52,7 @@ package starling.cocosbuilder
 				case CCBKeyframeTypeRotation:     nameType = kCCBKeyframeTypeRotation;     break;
 				case CCBKeyframeTypeColor:        nameType = kCCBKeyframeTypeColor;        break;
 				case CCBKeyframeTypeSoundChannel: nameType = kCCBKeyframeTypeSoundChannel; break;
+				case CCBKeyframeTypeSkew:         nameType = kCCBKeyframeTypeSkew;         break;
 				default: throw new Error("not implement of type " + value);
 			}
 		}

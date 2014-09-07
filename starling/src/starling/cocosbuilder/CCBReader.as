@@ -15,7 +15,6 @@ package starling.cocosbuilder
 	import flash.utils.Dictionary;
 	
 	import starling.animation.Transitions;
-	import starling.display.BlendMode;
 	import starling.utils.AssetManager;
 	import starling.utils.Color;
 	
@@ -536,11 +535,12 @@ package starling.cocosbuilder
 			}
 			else if (type == kCCBPropTypeBlock)
 			{
-				var selectorNameBlock:String = dataCCB.readCachedString();
-				var selectorTargetBlock:int = dataCCB.readIntWithSign(false);
+				var block:CCTypeBlock = new CCTypeBlock();
 				
-				node.setProperty(name, selectorNameBlock);
-				trace("readPropertyForNode: kCCBPropTypeBlock to be finished");
+				block.name = dataCCB.readCachedString();
+				block.target = dataCCB.readIntWithSign(false);
+				
+				node.setProperty(name, block);
 			}
 			else
 			{

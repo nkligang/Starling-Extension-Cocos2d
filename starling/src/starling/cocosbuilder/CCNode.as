@@ -10,10 +10,9 @@
 
 package starling.cocosbuilder
 {
-	import flash.geom.Point;
-	
 	import starling.core.RenderSupport;
 	import starling.display.DisplayObject;
+	import starling.display.DisplayObjectContainer;
 	import starling.display.Sprite;
 	import starling.filters.FragmentFilter;
 
@@ -24,6 +23,7 @@ package starling.cocosbuilder
 	{
 		private var mAnimationManager:CCBAnimationManager;
 		private var mNodeProperty:CCNodeProperty;
+		private var mTag:int = -1;
 		
 		public function CCNode()
 		{
@@ -49,6 +49,49 @@ package starling.cocosbuilder
 		
 		public function get nodeProperty():CCNodeProperty { return this.mNodeProperty; }
 		public function set nodeProperty(value:CCNodeProperty):void { this.mNodeProperty = value; }
+		
+		public function get tag():int { return mTag; }
+		public function set tag(value:int):void { mTag = value; }
+		
+		public function getChildByTag(tag:int):CCNode {
+			var childCount:int = this.numChildren;
+			var child:DisplayObject = null;
+			for (var i:int = 0; i < childCount; i++)
+			{
+				child = this.getChildAt(i);
+				if (child is CCNode) {
+					var childNode:CCNode = child as CCNode;
+					if (childNode.tag == tag)
+						return childNode;
+				}
+			}
+			return null;
+		}
+		
+		public function getChildByTagRecursive(tag:int):CCNode
+		{
+			return CCNode.getChildByTagRecursive(tag, this);
+		}
+		
+		public static function getChildByTagRecursive(tag:int, parent:CCNode):CCNode
+		{
+			var result:CCNode = null;
+			var numChildren:int = parent.numChildren;
+			for (var i:int=0; i<numChildren; ++i)
+			{
+				var child:DisplayObject = parent.getChildAt(i);
+				if (child is CCNode) {
+					var childNode:CCNode = child as CCNode;
+					if (childNode.tag == tag) {
+						return childNode;
+					}
+					result = getChildByTagRecursive(tag, childNode);
+					if (result != null) return result;
+				}
+			}
+			
+			return null;
+		}
 		
 		public static function renderObject(support:RenderSupport, parentAlpha:Number, obj:DisplayObject):void
 		{

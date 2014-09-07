@@ -32,6 +32,9 @@ package starling.cocosbuilder
 		public static const CCBNodeClassName_CCControlButton:String      = "CCControlButton";
 		public static const CCBNodeClassName_CCParticleSystemQuad:String = "CCParticleSystemQuad";
 		public static const CCBNodeClassName_CCBFile:String              = "CCBFile";
+		public static const CCBNodeClassName_CCMenu:String               = "CCMenu";
+		public static const CCBNodeClassName_CCMenuItem:String           = "CCMenuItem";
+		public static const CCBNodeClassName_CCMenuItemImage:String      = "CCMenuItemImage";
 
 		public static var sCustomClassPrefix:String;
 
@@ -108,6 +111,18 @@ package starling.cocosbuilder
 			{
 				nodeObject = new CCParticleSystemQuad();
 			}
+			else if (nodeInfo.className == CCBNodeClassName_CCMenu)
+			{
+				nodeObject = new CCMenu();
+			}
+			else if (nodeInfo.className == CCBNodeClassName_CCMenuItem)
+			{
+				nodeObject = new CCMenuItem();
+			}
+			else if (nodeInfo.className == CCBNodeClassName_CCMenuItemImage)
+			{
+				nodeObject = new CCMenuItemImage();
+			}
 			else
 			{
 				try
@@ -157,6 +172,21 @@ package starling.cocosbuilder
 				nodeObject.anchorPoint = nodeInfo.getAnchorPoint();
 			}
 			nodeObject.ignoreAnchorPointForPosition = nodeInfo.isIgnoreAnchorPointForPosition();
+			
+			// rotation
+			nodeObject.rotation = nodeInfo.getRotation();
+			
+			if (nodeInfo.hasProperty(CCNodeProperty.CCBNodePropertySkew))
+			{
+				var skew:Point = nodeInfo.getSkew();
+				nodeObject.skewX = skew.x;
+				nodeObject.skewY = skew.y;
+			}
+
+			if (nodeInfo.hasProperty(CCNodeProperty.CCBNodePropertyTag))
+			{
+				nodeObject.tag = nodeInfo.getTag();
+			}
 			
 			// visiblity
 			nodeObject.visible = nodeInfo.isVisible();

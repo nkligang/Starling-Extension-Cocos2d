@@ -11,6 +11,8 @@ package scenes
 	import scenes.cocos2d.PbCCDialog;
 	import scenes.cocos2d.PbCCScrollView;
 	import scenes.cocos2d.PbCCBAnimationManager;
+	import scenes.cocos2d.PbBasicProperty;
+	import scenes.cocos2d.PbTag;
 	
 	import starling.cocosbuilder.CCBFile;
 	import starling.cocosbuilder.CCBReader;
@@ -33,6 +35,8 @@ package scenes
 			PbCCDialog;
 			PbCCScrollView;
 			PbCCBAnimationManager;
+			PbBasicProperty;
+			PbTag;
 			CCBFile.CustomClassPrefix = "scenes.cocos2d.";
 			
 			addEventListener(Event.ADDED_TO_STAGE, onAddToStage);

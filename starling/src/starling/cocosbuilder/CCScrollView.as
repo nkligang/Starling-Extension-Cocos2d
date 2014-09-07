@@ -86,8 +86,7 @@ package starling.cocosbuilder
 			// 因为在Starling框架下，DisplayObjectContainer不参与Touch事件，只有DisplayObject才参与
 			// 虽然DisplayObjectContainer是从DisplayObject派生出来的，但仍然不会理会它的DisplayObject功能
 			// 这也可以认为是Starling的bug
-			var absoluteContentSize:Point = nodeInfo.getAbsoluteContentSize(null, null);
-			mQuad = new Quad(absoluteContentSize.x, absoluteContentSize.y);
+			mQuad = new Quad(this.contentSizeX, this.contentSizeY);
 			mQuad.anchorPoint = nodeInfo.getAnchorPoint();
 			mQuad.alpha = 0;
 			this.addChild(mQuad);

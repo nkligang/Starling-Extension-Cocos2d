@@ -467,7 +467,7 @@ package starling.display
 				var _offsetY:Number = 0;
 				if (mIgnoreAnchorPointForPosition) {
 					_offsetX += _pivotX;
-					_offsetY -= _pivotY;
+					_offsetY -= _pivotY + (mAnchorPointY - 0.5) * mContentSizeY * 2;
 				}
                 if (mSkewX == 0.0 && mSkewY == 0.0)
                 {

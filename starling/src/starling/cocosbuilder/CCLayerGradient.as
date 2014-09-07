@@ -65,11 +65,11 @@ package starling.cocosbuilder
 			var endAlpha:Number = CCNodeProperty.getOpacityFloat(endOpacityObj != null ? endOpacityObj as int : 255);
 			var midAlpha:Number = startAlpha + (endAlpha - startAlpha) * 0.5;
 			var vectorObj:Object = nodeInfo.getProperty(CCNodeProperty.CCBNodePropertyVector);
+			var vectorValue:Point = vectorObj as Point;
 			
-			var vector:Point = vectorObj != null ? vectorObj as Point : new Point(0, 0);
+			var vector:Point = vectorValue != null ? new Point(vectorValue.x, -vectorValue.y) : new Point(0, 0);
 			startColor = Color.setAlphaFloat(startColor, startAlpha);
 			endColor = Color.setAlphaFloat(endColor, endAlpha);
-			vector.y = -vector.y;
 			setColorPoint(startColor, endColor, vector);
 			
 			this.alpha = nodeInfo.getOpacity();

@@ -18,10 +18,10 @@ package starling.cocosbuilder
 	import starling.core.Starling;
 	import starling.display.DisplayObject;
 	import starling.events.Event;
+	import starling.events.EventDispatcher;
 	import starling.textures.Texture;
 	import starling.utils.Color;
 	import starling.utils.deg2rad;
-	import starling.events.EventDispatcher;
 	
 	public class CCBAnimationManager extends EventDispatcher implements IAnimatable
 	{		
@@ -241,6 +241,10 @@ package starling.cocosbuilder
 							sprite.color = color;
 						}
 					}
+					// skew
+					var skew:Point = nodeInfo.getSkew();
+					nodeObject.skewX = skew.x;
+					nodeObject.skewY = skew.y;
 				}
 				
 				var seqNodeProps:Dictionary = nodeInfo.getSequence(mCurrentSequence.sequenceId);
@@ -355,6 +359,13 @@ package starling.cocosbuilder
 								var spriteTexture:Texture = spriteFrameThis.getTexture();
 								if (sprite != null && spriteTexture != null) sprite.texture = spriteTexture;
 							}
+						}
+						else if (nameType == CCBSequenceProperty.kCCBKeyframeTypeSkew)
+						{
+							var skewThis:Point = keyframeThis.value as Point;
+							var skewNext:Point = keyframeNext.value as Point;
+							nodeObject.skewX =  deg2rad(skewThis.x + (skewNext.x - skewThis.x) * resultRatio);
+							nodeObject.skewY = -deg2rad(skewThis.y + (skewNext.y - skewThis.y) * resultRatio);
 						}
 						else
 						{
