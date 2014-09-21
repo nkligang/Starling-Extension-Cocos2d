@@ -1,6 +1,6 @@
 load and render CocosBuilder Exported .ccbi file for Starling-Framework
 
-this project is base on Starling-Framework of version 1.4.1
+this project is base on Starling-Framework of version 1.5.1
 
 have any problem? email to: nkligang@163.com
 
@@ -12,3 +12,5 @@ support:
 2. BMFont: load BMFont text format file(.fnt)
 
 3. ccbi: CocosBuilder exported .ccbi file is support(CocosBuilder version 3.0)
+
+4. full extension for starling framework without changed one line code of starling
