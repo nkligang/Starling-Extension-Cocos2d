@@ -10,6 +10,8 @@
 
 package starling.cocosbuilder
 {
+	import flash.geom.Rectangle;
+	
 	import starling.core.RenderSupport;
 	import starling.display.Image;
 	import starling.textures.SubTexture;
@@ -69,8 +71,9 @@ package starling.cocosbuilder
 			this.anchorPointY = 0.5;
 			if (pTexture is SubTexture) {
 				var pSubTexture:SubTexture = pTexture as SubTexture;
-				this.contentSizeX = pSubTexture.frame.width;
-				this.contentSizeY = pSubTexture.frame.height;
+				var frame:Rectangle = pSubTexture.frame;
+				this.contentSizeX = frame ? frame.width  : pSubTexture.width;
+				this.contentSizeY = frame ? frame.height : pSubTexture.height;
 			} else {
 				this.contentSizeX = pTexture.width;
 				this.contentSizeY = pTexture.height;

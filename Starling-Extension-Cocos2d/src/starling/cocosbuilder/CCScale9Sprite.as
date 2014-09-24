@@ -151,6 +151,10 @@ package starling.cocosbuilder
 					insetLeft = insetRight = w/3;
 					insetTop = insetBottom = h/3;
 				}
+				if (insetTop == 0) insetTop = 0.001;
+				if (insetLeft == 0) insetLeft = 0.001;
+				if (insetRight == 0) insetRight = 0.001;
+				if (insetBottom == 0) insetBottom = 0.001;
 				
 				// top
 				var textureLT:Texture = Texture.fromTexture(mTexture, new Rectangle(0, 0, insetLeft, insetTop));

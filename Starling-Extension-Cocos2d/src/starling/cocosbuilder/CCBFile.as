@@ -35,6 +35,7 @@ package starling.cocosbuilder
 		public static const CCBNodeClassName_CCMenu:String               = "CCMenu";
 		public static const CCBNodeClassName_CCMenuItem:String           = "CCMenuItem";
 		public static const CCBNodeClassName_CCMenuItemImage:String      = "CCMenuItemImage";
+		public static const CCBNodeClassName_CCEditBox:String            = "CCEditBox";
 
 		public static var sCustomClassPrefix:String;
 
@@ -122,6 +123,10 @@ package starling.cocosbuilder
 			else if (nodeInfo.className == CCBNodeClassName_CCMenuItemImage)
 			{
 				nodeObject = new CCMenuItemImage();
+			}
+			else if (nodeInfo.className == CCBNodeClassName_CCEditBox)
+			{
+				nodeObject = new CCEditBox();
 			}
 			else
 			{

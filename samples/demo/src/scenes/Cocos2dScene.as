@@ -25,9 +25,9 @@ package scenes
 	import starling.cocosbuilder.CCNode;
 	import starling.cocosbuilder.CCScale9Sprite;
 	import starling.cocosbuilder.CCSprite;
+	import starling.cocosbuilder.CCEditBox;
 	import starling.cocosbuilder.utils.AssetManager;
 	import starling.core.Starling;
-	import starling.display.DisplayObject;
 	import starling.display.MovieClip;
 	import starling.events.Event;
 	import starling.textures.Texture;
@@ -242,6 +242,18 @@ package scenes
 			Starling.juggler.add(mMovie);
 		}
 		
+		public function testCCEditBox():void
+		{
+			var editbox:CCEditBox = CCEditBox.create(200, 50, "Hello world");//, "fonts/2x/Monotype.fnt", 50);
+			editbox.x = CCDialogManager.CenterX;
+			editbox.y = CCDialogManager.CenterY;
+			editbox.anchorPointX = 0.5;
+			editbox.anchorPointY = 0.5;
+			//editbox.ignoreAnchorPointForPosition = true;
+			editbox.border = true;
+			addChild(editbox);
+		}
+		
 		private function onAddToStage(event:Event):void
 		{
 			if (CCBReader.assets == null) {
@@ -265,7 +277,8 @@ package scenes
 						//testCCSprite();
 						//testCCLayer();
 						//testCCLayer2();
-						testCCLayer3();
+						//testCCLayer3();
+						testCCEditBox();
 					}
 				});
 			} else {
