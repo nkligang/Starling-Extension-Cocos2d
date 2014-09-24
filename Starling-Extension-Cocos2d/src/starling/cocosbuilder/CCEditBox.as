@@ -111,6 +111,7 @@ package starling.cocosbuilder
 				this.mNativeTextField.visible = true;
 				mTextField.visible = false;
 				mEditEnabled = true;
+				Starling.current.nativeStage.focus = this.mNativeTextField;
 			}
 		}
 		
