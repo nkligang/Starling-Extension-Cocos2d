@@ -1139,6 +1139,9 @@ package starling.cocosbuilder.utils
 			{
 				var line:String = lines[i];
 				if (line.length <= 0) continue;
+				if (line.charAt(line.length - 1) == "\r") {
+					line = line.substr(0, line.length - 1);
+				}
 				var keyIndex:int;
 				keyIndex = line.indexOf(" ");
 				if (keyIndex >= 0)

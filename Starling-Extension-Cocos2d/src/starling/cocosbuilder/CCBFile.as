@@ -153,11 +153,10 @@ package starling.cocosbuilder
 			nodeObject.y =  localPosition.y;
 
 			// calculate local content size
-			var localContentSize:Point = new Point;
-			var contentSizeObj:Object = nodeInfo.getProperty(CCNodeProperty.CCBNodePropertyContentSize);
-			var contentSize:CCTypeSize = null;
-			if (contentSizeObj != null) {
-				contentSize = contentSizeObj as CCTypeSize;
+			if (nodeInfo.hasProperty(CCNodeProperty.CCBNodePropertyContentSize)) {
+				var localContentSize:Point = new Point;
+				var contentSizeObj:Object = nodeInfo.getProperty(CCNodeProperty.CCBNodePropertyContentSize);
+				var contentSize:CCTypeSize = contentSizeObj as CCTypeSize;
 				CCNodeProperty.getContentSize(contentSize, parentObject, nodeObject, localContentSize);
 				nodeObject.contentSizeX = localContentSize.x;
 				nodeObject.contentSizeY = localContentSize.y;
@@ -165,7 +164,7 @@ package starling.cocosbuilder
 			if (nodeInfo.hasProperty(CCNodeProperty.CCBNodePropertyPreferedSize))
 			{
 				var preferedSizeObj:Object = nodeInfo.getProperty(CCNodeProperty.CCBNodePropertyPreferedSize);
-				var preferedSize:CCTypeSize = preferedSizeObj != null ? preferedSizeObj as CCTypeSize : new CCTypeSize;
+				var preferedSize:CCTypeSize = preferedSizeObj as CCTypeSize;
 				var preferedAbsoluteSize:Point = CCNodeProperty.getContentSize(preferedSize, parentObject, nodeObject, localContentSize);
 				nodeInfo.setProperty(CCNodeProperty.CCBNodePropertyPreferedSize, preferedAbsoluteSize);
 			}
@@ -180,7 +179,7 @@ package starling.cocosbuilder
 			if (nodeInfo.className == CCBNodeClassName_CCScale9Sprite) {
 				if (nodeInfo.hasProperty(CCNodeProperty.CCBNodePropertyAnchorPoint))
 					nodeObject.anchorPoint = nodeInfo.getAnchorPoint();
-			} else {
+			} else if (nodeInfo.className != CCBNodeClassName_CCBFile) {
 				nodeObject.anchorPoint = nodeInfo.getAnchorPoint();
 			}
 			
@@ -205,7 +204,10 @@ package starling.cocosbuilder
 			// create display object
 			nodeObject.initWithNodeProperty(nodeInfo);
 
-			nodeObject.ignoreAnchorPointForPosition = nodeInfo.isIgnoreAnchorPointForPosition();
+			// ignore anchor point
+			if (nodeInfo.className != CCBNodeClassName_CCBFile) {
+				nodeObject.ignoreAnchorPointForPosition = nodeInfo.isIgnoreAnchorPointForPosition();
+			}
 			
 			var mChildren:Vector.<CCNodeProperty> = nodeInfo.getChildren();
 			var numChildren:int = mChildren.length;

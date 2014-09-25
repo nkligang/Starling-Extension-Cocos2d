@@ -3546,8 +3546,8 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>320</real>
-							<real>350</real>
+							<real>160</real>
+							<real>54</real>
 							<integer>0</integer>
 						</array>
 					</dict>
