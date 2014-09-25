@@ -249,7 +249,7 @@ package starling.cocosbuilder.utils
             log("Adding texture '" + name + "' with " + texture.width + "x" + texture.height + " pixels");
             
             if (name in mTextures)
-                log("Warning: name was already in use; the previous texture will be replaced.");
+                log("Warning: name was already in use; the previous texture will be replaced: " + name);
             
             mTextures[name] = texture;
         }
@@ -1134,10 +1134,11 @@ package starling.cocosbuilder.utils
 		private function LoadDictionaryFromText(text:String):Object
 		{
 			var dictionary:Dictionary = new Dictionary;
-			var lines:Array = text.split("\r\n");
+			var lines:Array = text.split("\n");
 			for(var i:int = 0; i < lines.length; i++)
 			{
 				var line:String = lines[i];
+				if (line.length <= 0) continue;
 				var keyIndex:int;
 				keyIndex = line.indexOf(" ");
 				if (keyIndex >= 0)

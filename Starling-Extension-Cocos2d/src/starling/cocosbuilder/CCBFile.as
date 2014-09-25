@@ -162,6 +162,13 @@ package starling.cocosbuilder
 				nodeObject.contentSizeX = localContentSize.x;
 				nodeObject.contentSizeY = localContentSize.y;
 			}
+			if (nodeInfo.hasProperty(CCNodeProperty.CCBNodePropertyPreferedSize))
+			{
+				var preferedSizeObj:Object = nodeInfo.getProperty(CCNodeProperty.CCBNodePropertyPreferedSize);
+				var preferedSize:CCTypeSize = preferedSizeObj != null ? preferedSizeObj as CCTypeSize : new CCTypeSize;
+				var preferedAbsoluteSize:Point = CCNodeProperty.getContentSize(preferedSize, parentObject, nodeObject, localContentSize);
+				nodeInfo.setProperty(CCNodeProperty.CCBNodePropertyPreferedSize, preferedAbsoluteSize);
+			}
 
 			// calculate local scale
 			var localScale:Point = nodeInfo.getScale(parentObject, nodeObject);

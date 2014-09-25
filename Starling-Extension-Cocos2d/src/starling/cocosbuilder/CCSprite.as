@@ -110,6 +110,7 @@ package starling.cocosbuilder
 				this.color = nodeInfo.getColor();
 				this.rotation = nodeInfo.getRotation();
 				this.touchable = nodeInfo.isTouchable();
+				this.alpha = nodeInfo.getOpacity();
 				return true;
 			}
 			else
@@ -128,8 +129,9 @@ package starling.cocosbuilder
 			mImage.readjustSize();
 			if (value is SubTexture) {
 				var pSubTexture:SubTexture = value as SubTexture;
-				this.contentSizeX = pSubTexture.frame.width;
-				this.contentSizeY = pSubTexture.frame.height;
+				var frame:Rectangle = pSubTexture.frame;
+				this.contentSizeX = frame ? frame.width  : pSubTexture.width;
+				this.contentSizeY = frame ? frame.height : pSubTexture.height;
 			} else {
 				this.contentSizeX = value.width;
 				this.contentSizeY = value.height;

@@ -96,9 +96,8 @@ package starling.cocosbuilder
 			var spriteFrame:CCSpriteFrame = nodeInfo.getProperty(CCNodeProperty.CCBNodePropertySpriteFrame) as CCSpriteFrame;
 			if (spriteFrame != null)
 			{
-				var preferedSizeObj:Object = nodeInfo.getProperty(CCNodeProperty.CCBNodePropertyPreferedSize);
-				var preferedSize:CCTypeSize = preferedSizeObj != null ? preferedSizeObj as CCTypeSize : new CCTypeSize;
-				var preferedAbsoluteSize:Point = CCNodeProperty.getContentSize(preferedSize, null, null);
+				var preferedSizeObj:Object = nodeInfo.getProperty(CCNodeProperty.CCBNodePropertyPreferedSize) as Point;
+				var preferedAbsoluteSize:Point = preferedSizeObj != null ? preferedSizeObj as Point : new Point;
 				var insetLeftObj:Object = nodeInfo.getProperty(CCNodeProperty.CCBNodePropertyInsetLeft);
 				mInsets.left = insetLeftObj != null ? insetLeftObj as Number : 0;
 				var insetRightObj:Object = nodeInfo.getProperty(CCNodeProperty.CCBNodePropertyInsetRight);

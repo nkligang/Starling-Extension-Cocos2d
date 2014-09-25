@@ -190,8 +190,8 @@ package starling.cocosbuilder
 				}
 			}
 			
-			if (carryOverTime) 
-				advanceTime(carryOverTime);			
+			//if (carryOverTime) 
+			//	advanceTime(carryOverTime);			
 		}
 		
 		public function advanceRecurse(nodeObject:CCNode, parentObject:CCNode, reset:Boolean):void
