@@ -137,7 +137,8 @@ package starling.cocosbuilder
 				}
 				catch(error:ReferenceError)
 				{
-					throw new Error("[CCBFile] createDisplayNodeGraph: not implement class: '" + sCustomClassPrefix + nodeInfo.className + "'");
+					trace("[CCBFile] createDisplayNodeGraph: not implement class: '" + sCustomClassPrefix + nodeInfo.className + "'");
+					nodeObject = new CCLayer();
 				}
 			}
 			// set target

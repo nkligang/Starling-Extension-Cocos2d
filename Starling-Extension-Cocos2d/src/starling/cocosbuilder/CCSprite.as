@@ -23,6 +23,8 @@ package starling.cocosbuilder
 		
 		public function CCSprite()
 		{
+			this.anchorPointX = 0.5;
+			this.anchorPointY = 0.5;
 		}
 		
 		public static function create(pszFileName:String):CCSprite
@@ -67,8 +69,6 @@ package starling.cocosbuilder
 		public function initWithTexture(pTexture:Texture):Boolean
 		{
 			mImage = new Image(pTexture);
-			this.anchorPointX = 0.5;
-			this.anchorPointY = 0.5;
 			if (pTexture is SubTexture) {
 				var pSubTexture:SubTexture = pTexture as SubTexture;
 				var frame:Rectangle = pSubTexture.frame;

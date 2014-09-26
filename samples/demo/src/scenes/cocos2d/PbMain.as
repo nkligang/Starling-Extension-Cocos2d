@@ -41,6 +41,8 @@ package scenes.cocos2d
 				CCDialogManager.createDialogByURL("CCDialog:ccb/CCLayer.ccbi");
 			} else if (buttonName == "CCSprite") {
 				CCDialogManager.createDialogByURL("CCDialog:ccb/CCSprite.ccbi");
+			} else if (buttonName == "CCScale9Sprite") {
+				CCDialogManager.createDialogByURL("CCDialog:ccb/CCScale9Sprite.ccbi");
 			} else if (buttonName == "CCLabelBMFont") {
 				CCDialogManager.createDialogByURL("CCDialog:ccb/CCLabelBMFont.ccbi");
 			} else if (buttonName == "CCLabelTTF") {

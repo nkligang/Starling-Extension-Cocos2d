@@ -155,6 +155,11 @@ package starling.cocosbuilder
 				if (insetRight == 0) insetRight = 0.001;
 				if (insetBottom == 0) insetBottom = 0.001;
 				
+				var widthMT:Number = w - insetLeft - insetRight;
+				var heightLM:Number = h - insetTop - insetBottom;
+				var xRT:Number = w - insetRight;
+				var yLB:Number = h - insetBottom;
+				
 				// top
 				var textureLT:Texture = Texture.fromTexture(mTexture, new Rectangle(0, 0, insetLeft, insetTop));
 				if (mImageLT == null)
@@ -162,51 +167,51 @@ package starling.cocosbuilder
 				else
 					mImageLT.texture = textureLT;
 				
-				var textureT:Texture = Texture.fromTexture(mTexture, new Rectangle(insetLeft, 0, w - insetLeft - insetRight, insetTop));
+				var textureT:Texture = Texture.fromTexture(mTexture, new Rectangle(insetLeft, 0, widthMT, insetTop));
 				if (mImageMT == null)
 					mImageMT = new Image(textureT);
 				else
 					mImageMT.texture = textureT;
 				
-				var textureRT:Texture = Texture.fromTexture(mTexture, new Rectangle(w - insetRight, 0, insetRight, insetTop));
+				var textureRT:Texture = Texture.fromTexture(mTexture, new Rectangle(xRT, 0, insetRight, insetTop));
 				if (mImageRT == null)
 					mImageRT = new Image(textureRT);
 				else
 					mImageRT.texture = textureRT;
 				
 				// middle
-				var textureLM:Texture = Texture.fromTexture(mTexture, new Rectangle(0, insetTop, insetLeft, h - insetTop - insetBottom));
+				var textureLM:Texture = Texture.fromTexture(mTexture, new Rectangle(0, insetTop, insetLeft, heightLM));
 				if (mImageLM == null)
 					mImageLM = new Image(textureLM);
 				else
 					mImageLM.texture = textureLM;
 				
-				var textureMM:Texture = Texture.fromTexture(mTexture, new Rectangle(insetLeft, insetTop, w - insetLeft - insetRight, h - insetTop - insetBottom));
+				var textureMM:Texture = Texture.fromTexture(mTexture, new Rectangle(insetLeft, insetTop, widthMT, heightLM));
 				if (mImageMM == null)
 					mImageMM = new Image(textureMM);
 				else
 					mImageMM.texture = textureMM;
 				
-				var textureRM:Texture = Texture.fromTexture(mTexture, new Rectangle(w - insetRight, insetTop, insetRight, h - insetTop - insetBottom));
+				var textureRM:Texture = Texture.fromTexture(mTexture, new Rectangle(xRT, insetTop, insetRight, heightLM));
 				if (mImageRM == null)
 					mImageRM = new Image(textureRM);
 				else
 					mImageRM.texture = textureRM;
 				
 				// bottom
-				var textureLB:Texture = Texture.fromTexture(mTexture, new Rectangle(0, h - insetBottom, insetLeft, insetBottom));
+				var textureLB:Texture = Texture.fromTexture(mTexture, new Rectangle(0, yLB, insetLeft, insetBottom));
 				if (mImageLB == null)
 					mImageLB = new Image(textureLB);
 				else
 					mImageLB.texture = textureLB;
 				
-				var textureMB:Texture = Texture.fromTexture(mTexture, new Rectangle(insetLeft, h - insetBottom, w - insetLeft - insetRight, insetBottom));
+				var textureMB:Texture = Texture.fromTexture(mTexture, new Rectangle(insetLeft, yLB, widthMT, insetBottom));
 				if (mImageMB == null)
 					mImageMB = new Image(textureMB);
 				else
 					mImageMB.texture = textureMB;
 				
-				var textureRB:Texture = Texture.fromTexture(mTexture, new Rectangle(w - insetRight, h - insetBottom, insetRight, insetBottom));
+				var textureRB:Texture = Texture.fromTexture(mTexture, new Rectangle(xRT, yLB, insetRight, insetBottom));
 				if (mImageRB == null)
 					mImageRB = new Image(textureRB);
 				else
@@ -256,30 +261,35 @@ package starling.cocosbuilder
 				insetTop = insetBottom = h/3;
 			}
 			
+			var widthMT:Number = value.x - insetLeft - insetRight;
+			var heightLM:Number = value.y - insetTop - insetBottom;
+			var xRT:Number = value.x - insetRight;
+			var yLB:Number = value.y - insetBottom;
+			
 			mImageLT.x = 0;
 			mImageLT.y = 0;
 			mImageMT.x = mImageLT.x + mImageLT.width;
 			mImageMT.y = mImageLT.y;
-			mImageMT.width = value.x - insetLeft - insetRight;
-			mImageRT.x = mImageLT.x + mImageLT.width + mImageMT.width;
+			mImageMT.width = widthMT;
+			mImageRT.x = xRT;
 			mImageRT.y = mImageLT.y;
 			mImageLM.x = mImageLT.x;
 			mImageLM.y = mImageLT.y + mImageLT.height;
-			mImageLM.height = value.y - insetTop - insetBottom;
+			mImageLM.height = heightLM;
 			mImageMM.x = mImageLT.x + mImageLM.width;
 			mImageMM.y = mImageLT.y + mImageLT.height;
-			mImageMM.width = value.x - insetLeft - insetRight;
-			mImageMM.height = value.y - insetTop - insetBottom;
-			mImageRM.x = mImageLT.x + mImageLM.width + mImageMM.width;
+			mImageMM.width = widthMT;
+			mImageMM.height = heightLM;
+			mImageRM.x = xRT;
 			mImageRM.y = mImageLT.y + mImageLT.height;
-			mImageRM.height = value.y - insetTop - insetBottom;
+			mImageRM.height = heightLM;
 			mImageLB.x = mImageLT.x;
-			mImageLB.y = mImageLT.y + mImageLT.height + mImageLM.height;
+			mImageLB.y = yLB;
 			mImageMB.x = mImageLT.x + mImageLB.width;
-			mImageMB.y = mImageLT.y + mImageLT.height + mImageLM.height;
-			mImageMB.width = value.x - insetLeft - insetRight;
-			mImageRB.x = mImageLT.x + mImageLB.width + mImageMB.width;
-			mImageRB.y = mImageLT.y + mImageLT.height + mImageLM.height;
+			mImageMB.y = yLB;
+			mImageMB.width = widthMT;
+			mImageRB.x = xRT;
+			mImageRB.y = yLB;
 			
 			this.contentSizeX = value.x;
 			this.contentSizeY = value.y;
