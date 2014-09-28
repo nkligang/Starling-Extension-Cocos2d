@@ -45,7 +45,7 @@ package starling.cocosbuilder
 		{
 		}
 		
-		private function createDisplayNodeGraph(parentObject:CCNode, nodeInfo:CCNodeProperty):CCNode
+		private function createDisplayNodeGraph(parentObject:CCNode, nodeInfo:CCNodeProperty, defaultRootClass:String = CCBNodeClassName_CCLayer):CCNode
 		{
 			var nodeObject:CCNode = null;
 			if (nodeInfo.className == CCBNodeClassName_CCBFile)
@@ -138,7 +138,17 @@ package starling.cocosbuilder
 				catch(error:ReferenceError)
 				{
 					trace("[CCBFile] createDisplayNodeGraph: not implement class: '" + sCustomClassPrefix + nodeInfo.className + "'");
-					nodeObject = new CCLayer();
+					if (parentObject == null) {
+						try {
+							var defaultClassRef:Class = getDefinitionByName(defaultRootClass) as Class;
+							nodeObject = new defaultClassRef() as CCNode;
+						} catch(error:ReferenceError) {
+							trace("[CCBFile] createDisplayNodeGraph: not implement class: '" + defaultRootClass + "'");
+							nodeObject = new CCLayer();
+						}
+					} else {
+						nodeObject = new CCLayer();
+					}
 				}
 			}
 			// set target
@@ -165,9 +175,11 @@ package starling.cocosbuilder
 			if (nodeInfo.hasProperty(CCNodeProperty.CCBNodePropertyPreferedSize))
 			{
 				var preferedSizeObj:Object = nodeInfo.getProperty(CCNodeProperty.CCBNodePropertyPreferedSize);
-				var preferedSize:CCTypeSize = preferedSizeObj as CCTypeSize;
-				var preferedAbsoluteSize:Point = CCNodeProperty.getContentSize(preferedSize, parentObject, nodeObject, localContentSize);
-				nodeInfo.setProperty(CCNodeProperty.CCBNodePropertyPreferedSize, preferedAbsoluteSize);
+				if (preferedSizeObj is CCTypeSize) {
+					var preferedSize:CCTypeSize = preferedSizeObj as CCTypeSize;
+					var preferedAbsoluteSize:Point = CCNodeProperty.getContentSize(preferedSize, parentObject, nodeObject, localContentSize);
+					nodeInfo.setProperty(CCNodeProperty.CCBNodePropertyPreferedSize, preferedAbsoluteSize);
+				}
 			}
 
 			// calculate local scale
@@ -215,16 +227,16 @@ package starling.cocosbuilder
 			for (var i:int=0; i<numChildren; ++i)
 			{
 				var childNodeInfo:CCNodeProperty = mChildren[i];
-				var childNodeObject:CCNode = createDisplayNodeGraph(nodeObject, childNodeInfo);
+				var childNodeObject:CCNode = createDisplayNodeGraph(nodeObject, childNodeInfo, defaultRootClass);
 				nodeObject.addChild(childNodeObject);
 			}
 
 			return nodeObject;
 		}
 				
-		public function createNodeGraph():CCNode
+		public function createNodeGraph(defaultRootClass:String = "starling.cocosbuilder.CCLayer"):CCNode
 		{
-			var node:CCNode = createDisplayNodeGraph(null, mRootNode);
+			var node:CCNode = createDisplayNodeGraph(null, mRootNode, defaultRootClass);
 			var actionManager:CCBAnimationManager = new CCBAnimationManager(this, node);
 			node.animationManager = actionManager;
 			

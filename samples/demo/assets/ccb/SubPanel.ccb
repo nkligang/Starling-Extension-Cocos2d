@@ -888,9 +888,9 @@
 				<string>Size</string>
 				<key>value</key>
 				<array>
-					<real>100</real>
-					<real>100</real>
-					<integer>1</integer>
+					<real>160</real>
+					<real>240</real>
+					<integer>0</integer>
 				</array>
 			</dict>
 			<dict>

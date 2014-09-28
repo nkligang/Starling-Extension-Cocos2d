@@ -30,6 +30,7 @@ package starling.cocosbuilder
 		
 		private var mHorizontalMoveEnabled:Boolean = false;
 		private var mVerticalMoveEnabled:Boolean = false;
+		private var mBounceable:Boolean = true;
 		private var mViewOffsetPosition:Point = new Point();
 		private var mViewSize:Point = new Point();
 
@@ -65,6 +66,11 @@ package starling.cocosbuilder
 		private var mIsDown:Boolean;
 		private var mUseHandCursor:Boolean = false;
 		
+		private static var kCCScrollViewDirectionNone:int = -1;
+		private static var kCCScrollViewDirectionHorizontal:int = 0;
+		private static var kCCScrollViewDirectionVertical:int = 1;
+		private static var kCCScrollViewDirectionBoth:int = 2;
+		
 		public function CCScrollView()
 		{
 		}
@@ -84,6 +90,40 @@ package starling.cocosbuilder
 			
 			this.touchable = true;
 			addEventListener(TouchEvent.TOUCH, onTouch);
+			
+			if (nodeInfo.hasProperty(CCNodeProperty.CCBNodePropertyContainer))
+			{
+				var container:CCBFileRef = nodeInfo.getProperty(CCNodeProperty.CCBNodePropertyContainer) as CCBFileRef;
+				var ccb:CCBFile = container.getCCB();
+				var node:CCNode = ccb.createNodeGraph();
+				setViewSize(node.contentSizeX, node.contentSizeY);
+				mContainer.addChild(node);
+			}
+			if (nodeInfo.hasProperty(CCNodeProperty.CCBNodePropertyDirection))
+			{
+				var direction:int = nodeInfo.getProperty(CCNodeProperty.CCBNodePropertyDirection) as int;
+				if (direction == kCCScrollViewDirectionNone) {
+					mHorizontalMoveEnabled = false;
+					mVerticalMoveEnabled = false;
+				} else if (direction == kCCScrollViewDirectionHorizontal) {
+					mHorizontalMoveEnabled = true;
+					mVerticalMoveEnabled = false;
+				} else if (direction == kCCScrollViewDirectionVertical) {
+					mHorizontalMoveEnabled = false;
+					mVerticalMoveEnabled = true;
+				} else if (direction == kCCScrollViewDirectionBoth) {
+					mHorizontalMoveEnabled = true;
+					mVerticalMoveEnabled = true;
+				}
+			}
+			if (nodeInfo.hasProperty(CCNodeProperty.CCBNodePropertyBounces))
+			{
+				mBounceable = nodeInfo.getProperty(CCNodeProperty.CCBNodePropertyBounces) as Boolean;
+			}
+			if (nodeInfo.hasProperty(CCNodeProperty.CCBNodePropertyClipsToBounds))
+			{
+				setClipEnabled(nodeInfo.getProperty(CCNodeProperty.CCBNodePropertyClipsToBounds) as Boolean);
+			}
 			
 			Starling.juggler.add(this);
 			return true;
@@ -311,6 +351,12 @@ package starling.cocosbuilder
 			}
 			var curPosX:Number = mContainer.x;
 			var curPosY:Number = mContainer.y;
+			if (mBounceable) {
+				if (mCurItemPositionX < 0.0) mCurItemPositionX = 0.0;
+				if (mCurItemPositionX > 1.0) mCurItemPositionX = 1.0;
+				if (mCurItemPositionY < 0.0) mCurItemPositionY = 0.0;
+				if (mCurItemPositionY > 1.0) mCurItemPositionY = 1.0;
+			}
 			var newPosX:Number = mViewOffsetPosition.x - (mViewSize.x - mContainer.contentSizeX) * mCurItemPositionX;
 			var newPosY:Number = mViewOffsetPosition.y + (mViewSize.y - mContainer.contentSizeY) * mCurItemPositionY;
 			if (mVerticalMoveEnabled) {
@@ -344,7 +390,7 @@ package starling.cocosbuilder
 				mViewSize.x = 1;
 			if (mViewSize.y == 0)
 				mViewSize.y = 1;
-			mViewOffsetPosition.setTo(0, contentSizeY - y);
+			mViewOffsetPosition.setTo(contentSizeX - x, contentSizeY - y);
 		}
 				
 		public function setClipEnabled(clip:Boolean):void {

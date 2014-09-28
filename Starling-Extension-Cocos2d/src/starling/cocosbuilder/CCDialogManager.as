@@ -115,22 +115,22 @@ package starling.cocosbuilder
 			return ccbFile;
 		}
 		
-		public function createDialog(res:String, type:String = "CCDialog", parameters:Dictionary = null, flags:int = CREATE_DIALOG_FLAG_DEFAULT):CCDialog
+		public function createDialog(res:String, type:String = "CCDialog", parameters:Dictionary = null, flags:int = CREATE_DIALOG_FLAG_DEFAULT, callback:Function = null):CCDialog
 		{
-			return createDialogByURLParser(CCDialogURLParser.create(res, type, parameters), flags);
+			return createDialogByURLParser(CCDialogURLParser.create(res, type, parameters), flags, callback);
 		}
 		
-		public function createDialogByURL(url:String, flags:int = CREATE_DIALOG_FLAG_DEFAULT):CCDialog
+		public function createDialogByURL(url:String, flags:int = CREATE_DIALOG_FLAG_DEFAULT, callback:Function = null):CCDialog
 		{
-			return createDialogByURLParser(CCDialogURLParser.createWithURL(url), flags);
+			return createDialogByURLParser(CCDialogURLParser.createWithURL(url), flags, callback);
 		}
 
-		public function createDialogByURLParser(urlParser:CCDialogURLParser, flags:int = CREATE_DIALOG_FLAG_DEFAULT):CCDialog
+		public function createDialogByURLParser(urlParser:CCDialogURLParser, flags:int = CREATE_DIALOG_FLAG_DEFAULT, callback:Function = null):CCDialog
 		{
 			if (mRootNode == null) { throw new ArgumentError("root node cannot be null"); return null; }
 			
 			var ccbFile:CCBFile = loadCCB(urlParser.resource, urlParser.getParameterStringArray("__load"), function():void {
-				createDialogByURLParser(urlParser, flags);
+				createDialogByURLParser(urlParser, flags, callback);
 			});
 			if (ccbFile == null) {
 				return null;
@@ -160,7 +160,7 @@ package starling.cocosbuilder
 				}
 			}
 			if (dialog == null) {
-				var node:CCNode = ccbFile.createNodeGraph();
+				var node:CCNode = ccbFile.createNodeGraph("starling.cocosbuilder.CCDialog");
 				if (node is CCDialog) {
 					dialog = node as CCDialog;
 				} else {
@@ -171,8 +171,13 @@ package starling.cocosbuilder
 			dialog.URLParser = urlParser;
 			if (flags & CREATE_DIALOG_FLAG_ADD_TO_LIST)
 			{
-				dialog.x = CCDialogManager.CenterX;
-				dialog.y = CCDialogManager.CenterY;
+				if (dialog.ignoreAnchorPointForPosition) {
+					dialog.x = CCDialogManager.OffsetX;
+					dialog.y = CCDialogManager.OffsetY;
+				} else {
+				 	dialog.x = CCDialogManager.CenterX;
+					dialog.y = CCDialogManager.CenterY;
+				}
 				dialog.scaleX = CCDialogManager.GlobalScale;
 				dialog.scaleY = CCDialogManager.GlobalScale;
 				dialog.touchable = true;
@@ -184,6 +189,7 @@ package starling.cocosbuilder
 				dialog.x = 0;
 				dialog.y = 0;
 			}
+			if (callback != null) callback();
 			return dialog;
 		}
 		
@@ -209,14 +215,14 @@ package starling.cocosbuilder
 			return sCurrent.loadCCB(res, resArray, callback);
 		}
 		
-		public static function createDialog(res:String, type:String = "CCDialog", parameters:Dictionary = null, flags:int = CREATE_DIALOG_FLAG_DEFAULT):CCDialog {
-			return sCurrent.createDialog(res, type, parameters, flags);
+		public static function createDialog(res:String, type:String = "CCDialog", parameters:Dictionary = null, flags:int = CREATE_DIALOG_FLAG_DEFAULT, callback:Function = null):CCDialog {
+			return sCurrent.createDialog(res, type, parameters, flags, callback);
 		}
-		public static function createDialogByURL(url:String, flags:int = CREATE_DIALOG_FLAG_DEFAULT):CCDialog {
-			return sCurrent.createDialogByURL(url, flags);
+		public static function createDialogByURL(url:String, flags:int = CREATE_DIALOG_FLAG_DEFAULT, callback:Function = null):CCDialog {
+			return sCurrent.createDialogByURL(url, flags, callback);
 		}
-		public static function createDialogByURLParser(urlParser:CCDialogURLParser, flags:int = CREATE_DIALOG_FLAG_DEFAULT):CCDialog {
-			return sCurrent.createDialogByURLParser(urlParser, flags);
+		public static function createDialogByURLParser(urlParser:CCDialogURLParser, flags:int = CREATE_DIALOG_FLAG_DEFAULT, callback:Function = null):CCDialog {
+			return sCurrent.createDialogByURLParser(urlParser, flags, callback);
 		}
 		public static function destroyDialog(dialog:CCDialog, flags:int = DESTROY_DIALOG_FLAG_DEFAULT):void {
 			return sCurrent.destroyDialog(dialog, flags);

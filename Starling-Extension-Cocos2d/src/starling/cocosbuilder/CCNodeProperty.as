@@ -83,6 +83,10 @@ package starling.cocosbuilder
 		public static const CCBNodePropertySelectedSpriteFrame:String          = "selectedSpriteFrame";
 		public static const CCBNodePropertyDisabledSpriteFrame:String          = "disabledSpriteFrame";
 		public static const CCBNodePropertyBlock:String                        = "block";
+		public static const CCBNodePropertyContainer:String                    = "container";
+		public static const CCBNodePropertyDirection:String                    = "direction";
+		public static const CCBNodePropertyBounces:String                      = "bounces";
+		public static const CCBNodePropertyClipsToBounds:String                = "clipsToBounds";
 				
 		public function CCNodeProperty(className:String, parent:CCNodeProperty)
 		{
