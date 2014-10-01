@@ -55,6 +55,8 @@ package scenes.cocos2d
 				CCDialogManager.createDialogByURL("CCDialog:ccb/CCBAnimationManager.ccbi");
 			} else if (buttonName == "CCMenu") {
 				CCDialogManager.createDialogByURL("CCDialog:ccb/CCMenu.ccbi");
+			} else if (buttonName == "CCButtonControl") {
+				CCDialogManager.createDialogByURL("CCDialog:ccb/CCButtonControl.ccbi");
 			} else if (buttonName == "BasicProperty") {
 				CCDialogManager.createDialogByURL("CCDialog:ccb/BasicProperty.ccbi");
 			} else if (buttonName == "Brower") {

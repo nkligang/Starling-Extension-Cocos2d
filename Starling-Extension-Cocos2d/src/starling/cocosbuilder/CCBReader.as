@@ -77,8 +77,18 @@ package starling.cocosbuilder
 				if (mFileVersion == 5)
 				{
 					var numCallbackKeyframes:int = dataCCB.readIntWithSign(false);
-					if (numCallbackKeyframes > 0)
-						throw new Error("no callback key frames permit");
+					if (numCallbackKeyframes > 0) {
+						sequence.callbackChannel = new CCBSequenceProperty();
+					}
+					for(var k:int = 0; k < numCallbackKeyframes; ++k) {
+						var keyfameCallback:CCBKeyframe = new CCBKeyframe();
+						keyfameCallback.time = dataCCB.readFloat();
+						var callbackProperty:CCCallbackChannelProperty = new CCCallbackChannelProperty();
+						callbackProperty.name = dataCCB.readCachedString();
+						callbackProperty.type = dataCCB.readIntWithSign(false);
+						keyfameCallback.value = callbackProperty;
+						sequence.callbackChannel.addKeyframe(keyfameCallback);
+					}
 					
 					var numSoundKeyframes:int = dataCCB.readIntWithSign(false);
 					if (numSoundKeyframes > 0) {
@@ -526,12 +536,13 @@ package starling.cocosbuilder
 			}
 			else if (type == kCCBPropTypeBlockCCControl)
 			{
-				var selectorName:String = dataCCB.readCachedString();
-				var selectorTarget:int = dataCCB.readIntWithSign(false);
-				var controlEvents:int = dataCCB.readIntWithSign(false);
+				var blockControl:CCTypeBlock = new CCTypeBlock();
 				
-				node.setProperty(name, selectorName);
-				trace("readPropertyForNode: kCCBPropTypeBlockCCControl to be finished");
+				blockControl.name = dataCCB.readCachedString();
+				blockControl.target = dataCCB.readIntWithSign(false);
+				blockControl.event = dataCCB.readIntWithSign(false);
+				
+				node.setProperty(name, blockControl);
 			}
 			else if (type == kCCBPropTypeBlock)
 			{

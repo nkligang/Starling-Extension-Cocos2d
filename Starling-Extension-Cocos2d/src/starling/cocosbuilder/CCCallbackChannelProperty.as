@@ -10,10 +10,9 @@
 
 package starling.cocosbuilder
 {
-	public class CCTypeBlock
+	public class CCCallbackChannelProperty
 	{
 		public var name:String;
-		public var target:int;
-		public var event:int;
+		public var type:int;
 	}
 }

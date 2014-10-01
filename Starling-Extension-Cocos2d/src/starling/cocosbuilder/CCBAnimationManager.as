@@ -106,6 +106,7 @@ package starling.cocosbuilder
 			mDelay = delay;
 			advanceRecurse(mRootNode, null, reset);
 			advanceSound(mRootNode, null, false);
+			advanceCallback(mRootNode, null, false);
 		}
 		
 		private function startAnimation(sequence:CCBSequence, loop:Boolean, delay:Number):Boolean
@@ -170,6 +171,7 @@ package starling.cocosbuilder
 					if (mOnRepeat != null) mOnRepeat.apply(null, mOnRepeatArgs);
 					
 					advanceSound(mRootNode, null, false);
+					advanceCallback(mRootNode, null, false);
 				}
 				else
 				{
@@ -406,7 +408,31 @@ package starling.cocosbuilder
 				if (soundProperty.file == null) continue;
 				var sound:Sound = soundProperty.file.getSound();
 				if (sound == null) continue;
-				sound.play(-mCurrentTime * 1000);
+				var delay:Number = frameThis.time * 1000;
+				if (delay < 0) delay = 0;
+				sound.play(delay);
+			}
+		}
+		
+		public function advanceCallback(nodeObject:CCNode, parentObject:CCNode, reset:Boolean):void
+		{
+			if (mCurrentSequence == null) return;
+			var callbackChannel:CCBSequenceProperty = mCurrentSequence.callbackChannel;
+			if (callbackChannel == null) return;
+			var keyframes:Vector.<CCBKeyframe> = callbackChannel.getKeyframes();
+			var numKeyframe:int = keyframes.length;
+			for (var i:int = 0; i < numKeyframe; i++)
+			{
+				var frameThis:CCBKeyframe = keyframes[i];
+				if (frameThis == null) continue;
+				var callbackProperty:CCCallbackChannelProperty = frameThis.value as CCCallbackChannelProperty;
+				if (callbackProperty == null) continue;
+				var delay:Number = frameThis.time;
+				if (delay < 0) delay = 0;
+				Starling.juggler.delayCall(function(callbackProperty:CCCallbackChannelProperty):void {
+					dispatchEventWith(callbackProperty.name, true, callbackProperty.type);
+					trace("[CCBAnimation] Callback'" + callbackProperty.name + "':" + callbackProperty.type + " triggered at time:" + mCurrentTime);
+				}, delay, callbackProperty);
 			}
 		}
 		

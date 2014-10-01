@@ -19,6 +19,7 @@ package starling.cocosbuilder
 
 	public class CCControlButton extends CCNode
 	{
+		private var mPreferredSize:Point = new Point();
 		private var mButton:Button;
 		
 		public function CCControlButton()
@@ -61,20 +62,27 @@ package starling.cocosbuilder
 			var titleColor2:uint = titleColor2Obj != null ? titleColor2Obj as uint : Color.WHITE;
 			var titleColor3Obj:Object = nodeInfo.getProperty(CCNodeProperty.CCBNodePropertyTitleColor3);
 			var titleColor3:uint = titleColor3Obj != null ? titleColor3Obj as uint : Color.WHITE;
-			var preferedSizeObj2:Object = nodeInfo.getProperty(CCNodeProperty.CCBNodePropertyPreferedSize);
-			var preferedSize2:CCTypeSize = preferedSizeObj2 != null ? preferedSizeObj2 as CCTypeSize : new CCTypeSize;
+			var preferedAbsoluteSize:Point = nodeInfo.getProperty(CCNodeProperty.CCBNodePropertyPreferedSize) as Point;
 			var labelAnchorPointObj:Point = nodeInfo.getProperty(CCNodeProperty.CCBNodePropertyLabelAnchorPoint) as Point;
 			var labelAnchorPoint:Point = labelAnchorPointObj != null ? labelAnchorPointObj : new Point(0.5, 0.5);
 			
-			init(backgroundSpriteFrame1.getTexture(), titleTTF1, backgroundSpriteFrame2.getTexture());
+			this.preferredSize = preferedAbsoluteSize;
+			init(backgroundSpriteFrame1.getTexture(), title1, backgroundSpriteFrame2.getTexture());
 			//this.fontSize = titleTTFSize1.scale;
 			//this.fontColor = titleColor1;
 			
-			this.anchorPoint = nodeInfo.getAnchorPoint();
-			
-			this.alpha = 0.0;
-			this.anchorPoint = nodeInfo.getAnchorPoint();
+			//this.alpha = 0.0;
+			//this.anchorPoint = nodeInfo.getAnchorPoint();
 			return true;
+		}
+		
+		public function get preferredSize():Point { return mPreferredSize; }
+		public function set preferredSize(value:Point):void
+		{
+			mPreferredSize.x = value.x;
+			mPreferredSize.y = value.y;
+			this.contentSizeX = value.x;
+			this.contentSizeY = value.y;
 		}
 		
 		public override function render(support:RenderSupport, parentAlpha:Number):void

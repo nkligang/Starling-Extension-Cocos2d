@@ -24,13 +24,13 @@
 		<array>
 			<dict>
 				<key>baseClass</key>
-				<string>CCSprite</string>
+				<string>CCLayerColor</string>
 				<key>children</key>
 				<array/>
 				<key>customClass</key>
 				<string></string>
 				<key>displayName</key>
-				<string>CCSprite</string>
+				<string>CCLayerColor</string>
 				<key>memberVarAssignmentName</key>
 				<string></string>
 				<key>memberVarAssignmentType</key>
@@ -39,13 +39,13 @@
 				<array>
 					<dict>
 						<key>name</key>
-						<string>position</string>
+						<string>contentSize</string>
 						<key>type</key>
-						<string>Position</string>
+						<string>Size</string>
 						<key>value</key>
 						<array>
-							<real>160</real>
-							<real>240</real>
+							<real>320</real>
+							<real>480</real>
 							<integer>0</integer>
 						</array>
 					</dict>
@@ -67,8 +67,8 @@
 						<string>ScaleLock</string>
 						<key>value</key>
 						<array>
-							<real>0.5</real>
-							<real>0.5</real>
+							<real>1</real>
+							<real>1</real>
 							<false/>
 							<integer>0</integer>
 						</array>
@@ -79,17 +79,77 @@
 						<key>type</key>
 						<string>Check</string>
 						<key>value</key>
+						<true/>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>touchEnabled</string>
+						<key>platform</key>
+						<string>iOS</string>
+						<key>type</key>
+						<string>Check</string>
+						<key>value</key>
+						<true/>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>accelerometerEnabled</string>
+						<key>platform</key>
+						<string>iOS</string>
+						<key>type</key>
+						<string>Check</string>
+						<key>value</key>
 						<false/>
 					</dict>
 					<dict>
 						<key>name</key>
-						<string>displayFrame</string>
+						<string>mouseEnabled</string>
+						<key>platform</key>
+						<string>Mac</string>
 						<key>type</key>
-						<string>SpriteFrame</string>
+						<string>Check</string>
+						<key>value</key>
+						<true/>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>keyboardEnabled</string>
+						<key>platform</key>
+						<string>Mac</string>
+						<key>type</key>
+						<string>Check</string>
+						<key>value</key>
+						<false/>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>color</string>
+						<key>type</key>
+						<string>Color3</string>
 						<key>value</key>
 						<array>
-							<string>textures/2x/atlas2.plist</string>
-							<string>background.png</string>
+							<integer>0</integer>
+							<integer>0</integer>
+							<integer>0</integer>
+						</array>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>opacity</string>
+						<key>type</key>
+						<string>Byte</string>
+						<key>value</key>
+						<integer>255</integer>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>blendFunc</string>
+						<key>type</key>
+						<string>Blendmode</string>
+						<key>value</key>
+						<array>
+							<integer>770</integer>
+							<integer>771</integer>
 						</array>
 					</dict>
 				</array>
@@ -397,123 +457,14 @@
 				</array>
 			</dict>
 			<dict>
-				<key>animatedProperties</key>
-				<dict>
-					<key>0</key>
-					<dict>
-						<key>position</key>
-						<dict>
-							<key>keyframes</key>
-							<array>
-								<dict>
-									<key>easing</key>
-									<dict>
-										<key>type</key>
-										<integer>1</integer>
-									</dict>
-									<key>name</key>
-									<string>position</string>
-									<key>time</key>
-									<real>0.0</real>
-									<key>type</key>
-									<integer>3</integer>
-									<key>value</key>
-									<array>
-										<real>-45</real>
-										<real>420</real>
-									</array>
-								</dict>
-								<dict>
-									<key>easing</key>
-									<dict>
-										<key>type</key>
-										<integer>1</integer>
-									</dict>
-									<key>name</key>
-									<string>position</string>
-									<key>time</key>
-									<real>3</real>
-									<key>type</key>
-									<integer>3</integer>
-									<key>value</key>
-									<array>
-										<real>280</real>
-										<real>419</real>
-									</array>
-								</dict>
-							</array>
-							<key>name</key>
-							<string>position</string>
-							<key>type</key>
-							<integer>3</integer>
-						</dict>
-					</dict>
-				</dict>
 				<key>baseClass</key>
-				<string>CCBFile</string>
+				<string>CCControlButton</string>
 				<key>children</key>
 				<array/>
 				<key>customClass</key>
 				<string></string>
 				<key>displayName</key>
-				<string>CCBFile</string>
-				<key>memberVarAssignmentName</key>
-				<string></string>
-				<key>memberVarAssignmentType</key>
-				<integer>0</integer>
-				<key>properties</key>
-				<array>
-					<dict>
-						<key>baseValue</key>
-						<array>
-							<real>-45</real>
-							<real>420</real>
-						</array>
-						<key>name</key>
-						<string>position</string>
-						<key>type</key>
-						<string>Position</string>
-						<key>value</key>
-						<array>
-							<real>142.77778625488281</real>
-							<real>419.42221069335938</real>
-							<integer>0</integer>
-						</array>
-					</dict>
-					<dict>
-						<key>name</key>
-						<string>scale</string>
-						<key>type</key>
-						<string>ScaleLock</string>
-						<key>value</key>
-						<array>
-							<real>0.25</real>
-							<real>0.25</real>
-							<true/>
-							<integer>0</integer>
-						</array>
-					</dict>
-					<dict>
-						<key>name</key>
-						<string>ccbFile</string>
-						<key>type</key>
-						<string>CCBFile</string>
-						<key>value</key>
-						<string>ccb/Flight.ccb</string>
-					</dict>
-				</array>
-				<key>seqExpanded</key>
-				<true/>
-			</dict>
-			<dict>
-				<key>baseClass</key>
-				<string>CCBFile</string>
-				<key>children</key>
-				<array/>
-				<key>customClass</key>
-				<string></string>
-				<key>displayName</key>
-				<string>CCBFile</string>
+				<string>CCControlButton</string>
 				<key>memberVarAssignmentName</key>
 				<string></string>
 				<key>memberVarAssignmentType</key>
@@ -527,9 +478,20 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>144.32258605957031</real>
-							<real>189.11235046386719</real>
+							<real>165</real>
+							<real>398</real>
 							<integer>0</integer>
+						</array>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>anchorPoint</string>
+						<key>type</key>
+						<string>Point</string>
+						<key>value</key>
+						<array>
+							<real>0.5</real>
+							<real>0.5</real>
 						</array>
 					</dict>
 					<dict>
@@ -539,25 +501,172 @@
 						<string>ScaleLock</string>
 						<key>value</key>
 						<array>
-							<real>0.25</real>
-							<real>0.25</real>
-							<true/>
+							<real>1</real>
+							<real>1</real>
+							<false/>
 							<integer>0</integer>
 						</array>
 					</dict>
 					<dict>
 						<key>name</key>
-						<string>ccbFile</string>
+						<string>ignoreAnchorPointForPosition</string>
 						<key>type</key>
-						<string>CCBFile</string>
+						<string>Check</string>
 						<key>value</key>
-						<string>ccb/Animations.ccb</string>
+						<false/>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>ccControl</string>
+						<key>type</key>
+						<string>BlockCCControl</string>
+						<key>value</key>
+						<array>
+							<string></string>
+							<integer>0</integer>
+							<integer>32</integer>
+						</array>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>enabled</string>
+						<key>type</key>
+						<string>Check</string>
+						<key>value</key>
+						<true/>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>title|1</string>
+						<key>type</key>
+						<string>String</string>
+						<key>value</key>
+						<string>This is a Button</string>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>titleTTF|1</string>
+						<key>type</key>
+						<string>FontTTF</string>
+						<key>value</key>
+						<string>Helvetica</string>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>titleTTFSize|1</string>
+						<key>type</key>
+						<string>FloatScale</string>
+						<key>value</key>
+						<array>
+							<real>25</real>
+							<integer>0</integer>
+						</array>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>labelAnchorPoint</string>
+						<key>type</key>
+						<string>Point</string>
+						<key>value</key>
+						<array>
+							<real>0.5</real>
+							<real>0.5</real>
+						</array>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>preferedSize</string>
+						<key>type</key>
+						<string>Size</string>
+						<key>value</key>
+						<array>
+							<real>253</real>
+							<real>75</real>
+							<integer>0</integer>
+						</array>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>zoomOnTouchDown</string>
+						<key>type</key>
+						<string>Check</string>
+						<key>value</key>
+						<true/>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>backgroundSpriteFrame|1</string>
+						<key>type</key>
+						<string>SpriteFrame</string>
+						<key>value</key>
+						<array>
+							<string>textures/2x/atlas2.plist</string>
+							<string>button_medium.png</string>
+						</array>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>titleColor|1</string>
+						<key>type</key>
+						<string>Color3</string>
+						<key>value</key>
+						<array>
+							<integer>33</integer>
+							<integer>33</integer>
+							<integer>33</integer>
+						</array>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>backgroundSpriteFrame|2</string>
+						<key>type</key>
+						<string>SpriteFrame</string>
+						<key>value</key>
+						<array>
+							<string>textures/2x/atlas2.plist</string>
+							<string>button_medium.png</string>
+						</array>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>titleColor|2</string>
+						<key>type</key>
+						<string>Color3</string>
+						<key>value</key>
+						<array>
+							<integer>0</integer>
+							<integer>252</integer>
+							<integer>255</integer>
+						</array>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>backgroundSpriteFrame|3</string>
+						<key>type</key>
+						<string>SpriteFrame</string>
+						<key>value</key>
+						<array>
+							<string>textures/2x/atlas2.plist</string>
+							<string>button_medium.png</string>
+						</array>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>titleColor|3</string>
+						<key>type</key>
+						<string>Color3</string>
+						<key>value</key>
+						<array>
+							<integer>146</integer>
+							<integer>146</integer>
+							<integer>146</integer>
+						</array>
 					</dict>
 				</array>
 			</dict>
 		</array>
 		<key>customClass</key>
-		<string>PbCCBAnimationManager</string>
+		<string>PbCCDialog</string>
 		<key>displayName</key>
 		<string>CCLayer</string>
 		<key>memberVarAssignmentName</key>
@@ -608,7 +717,7 @@
 				<key>type</key>
 				<string>Check</string>
 				<key>value</key>
-				<false/>
+				<true/>
 			</dict>
 			<dict>
 				<key>name</key>
@@ -686,17 +795,17 @@
 			<key>chainedSequenceId</key>
 			<integer>-1</integer>
 			<key>length</key>
-			<real>3</real>
+			<real>10</real>
 			<key>name</key>
 			<string>Default Timeline</string>
 			<key>offset</key>
 			<real>0.0</real>
 			<key>position</key>
-			<real>1.7333333492279053</real>
+			<real>0.0</real>
 			<key>resolution</key>
 			<real>30</real>
 			<key>scale</key>
-			<real>96.023880004882812</real>
+			<real>128</real>
 			<key>sequenceId</key>
 			<integer>0</integer>
 			<key>soundChannel</key>
