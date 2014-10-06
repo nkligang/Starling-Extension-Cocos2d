@@ -136,6 +136,8 @@ package starling.cocosbuilder
 			
 			if (localPoint.x < 0 || localPoint.y < 0) return null;
 			if (localPoint.x > this.contentSizeX || localPoint.y > this.contentSizeY) return null;
+			var subObj:DisplayObject = super.hitTest(localPoint, forTouch);
+			if (subObj != null) return subObj;
 			return this;
 		}
 				
@@ -379,23 +381,23 @@ package starling.cocosbuilder
 			mContainer.removeChildren(0);
 		}
 		
-		private function setViewOffsetPosition(x:Number, y:Number):void {
-			mViewOffsetPosition.setTo(x, y);
+		private function setViewOffsetPosition(_x:Number, _y:Number):void {
+			mViewOffsetPosition.setTo(_x, _y);
 		}
 		
-		public function setViewSize(x:Number, y:Number):void {
-			mViewSize.x = x;
-			mViewSize.y = y;
-			if (mViewSize.x == 0)
-				mViewSize.x = 1;
-			if (mViewSize.y == 0)
-				mViewSize.y = 1;
-			mViewOffsetPosition.setTo(contentSizeX - x, contentSizeY - y);
+		public function setViewSize(_x:Number, _y:Number):void {
+			mViewSize.x = _x;
+			mViewSize.y = _y;
+			if (mViewSize.x == mContainer.contentSizeX)
+				mViewSize.x = mContainer.contentSizeX + 1;
+			if (mViewSize.y == mContainer.contentSizeY)
+				mViewSize.y = mContainer.contentSizeY + 1;
+			mViewOffsetPosition.setTo(0, mContainer.contentSizeY - _y);
 		}
-				
+
 		public function setClipEnabled(clip:Boolean):void {
 			if (clip) {
-				this.clipRect = new Rectangle(this.x, this.y, mContainer.contentSizeX, mContainer.contentSizeY);
+				this.clipRect = new Rectangle(0, 0, mContainer.contentSizeX, mContainer.contentSizeY);
 			} else {
 				this.clipRect = null;
 			}
