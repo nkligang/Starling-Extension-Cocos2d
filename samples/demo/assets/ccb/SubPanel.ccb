@@ -39,18 +39,6 @@
 				<array>
 					<dict>
 						<key>name</key>
-						<string>position</string>
-						<key>type</key>
-						<string>Position</string>
-						<key>value</key>
-						<array>
-							<real>0.0</real>
-							<real>1</real>
-							<integer>0</integer>
-						</array>
-					</dict>
-					<dict>
-						<key>name</key>
 						<string>contentSize</string>
 						<key>type</key>
 						<string>Size</string>
