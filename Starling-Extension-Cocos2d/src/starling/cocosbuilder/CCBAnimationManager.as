@@ -130,6 +130,7 @@ package starling.cocosbuilder
 			// if the object is not connected to the stage, we should not advance 
 			if (mRootNode.root == null) return;
 			
+			if (mTotalTime <= 0) return;
 			if (time == 0 || (mRepeatCount == 1 && mCurrentTime == mTotalTime)) return;
 			
 			if (mCurrentSequence == null) return;

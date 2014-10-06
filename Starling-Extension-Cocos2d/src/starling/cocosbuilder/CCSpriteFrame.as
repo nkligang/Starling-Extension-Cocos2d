@@ -42,7 +42,7 @@ package starling.cocosbuilder
 				}
 				mTexture = mAssertManager.getTexture(mSriteFile);
 				if (mTexture == null) {
-					if (mAssertManager.isInQueue(mSriteFile) == false)
+					if (mSriteFile.length != 0 && mAssertManager.isInQueue(mSriteFile) == false)
 						mAssertManager.enqueueWithName(mSriteFile, mSriteFile);
 				}
 			} else {
